@@ -1,0 +1,6 @@
+body {
+    background: -webkit-linear-gradient(171deg, #121212,#181818);
+    background: linear-gradient(171deg, #121212,#181818);
+    background-size: cover;
+    color: aliceblue ;
+}
