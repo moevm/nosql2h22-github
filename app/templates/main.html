@@ -1,3 +1,19 @@
+<<<<<<< HEAD
+{% extends 'base.html' %}
+
+{% block title %}
+Главная страница
+{% endblock %}
+
+{% block body %}
+<h1>{{title}}</h1>
+<h3>{{"Какое-то значение"}}: {{value}}</h3>
+<form method="POST" action="/name_sumbit">
+    <input class="namee" name="name" placeholder="Введите ваше имя" />
+    <input type="submit" value="Зарегистрироваться" />
+</form>
+{% endblock %}
+=======
 {% extends 'base.html' %}
 
 {% block title %}
@@ -8,3 +24,4 @@
 <h1>{{title}}</h1>
 <h3>{{"Какое-то значение"}}: {{value}}</h3>
 {% endblock %}
+>>>>>>> 465d9a129140fe0110168e4abae78fb3a3d433c0

@@ -1,6 +1,14 @@
+<<<<<<< HEAD
+body {
+    background: linear-gradient(171deg, #121212,#181818);
+    background-size: cover;
+    color: aliceblue ;
+}
+=======
 body {
     background: -webkit-linear-gradient(171deg, #121212,#181818);
     background: linear-gradient(171deg, #121212,#181818);
     background-size: cover;
     color: aliceblue ;
 }
+>>>>>>> 465d9a129140fe0110168e4abae78fb3a3d433c0
