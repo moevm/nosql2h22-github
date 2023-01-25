@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 from flask import Flask, render_template, url_for, request
 import pymongo
 import random
@@ -15,16 +14,4 @@ def name_sumbit():
 
 
 if __name__ == "__main__":
-=======
-from flask import Flask, render_template, url_for
-import pymongo
-app = Flask(__name__)
-
-@app.route('/', methods=['GET'])
-def home():
-    return render_template('main.html', value=12)
-
-
-if __name__ == "__main__":
->>>>>>> 465d9a129140fe0110168e4abae78fb3a3d433c0
     app.run(debug=True)
