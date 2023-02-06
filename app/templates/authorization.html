@@ -1,12 +1,11 @@
 {% extends 'base.html' %}
-
 {% block title %}
 GitHub logger
 {% endblock %}
 
 {% block body %}
-<div class="login-page">
-    
+<link rel="stylesheet" href="{{ url_for('static', filename='css/authorization.css') }}">
+<div class="login-page">    
     <div class="form">
       <div class="logo"><img class="logo" src="../static/images/25231.png"></div>
       <p class="header">GitHub logger</p>
@@ -25,5 +24,5 @@ GitHub logger
       </form>
     </div>
   </div>
-  
+
 {% endblock %}

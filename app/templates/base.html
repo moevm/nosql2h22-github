@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+    <link rel="stylesheet" href="https://kit.fontawesome.com/97ff653cc8.css" crossorigin="anonymous">
     <title>
         {% block title %}
         {% endblock %}
@@ -13,7 +13,8 @@
 <body>
     {% block body %}
     {% endblock %}
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='script/authorization.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='script/menu.js') }}"></script>
 </body>
 </html>
