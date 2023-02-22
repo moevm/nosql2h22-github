@@ -5,22 +5,24 @@ GitHub logger
 
 {% block body %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/menu.css') }}">
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous"> 
 <div class="topnav">
-  <a href="#exit">Выйти</a>
-</div>     
+  <a href="/authorization">LOG OUT</a>
+  <div class="wrap">
+    <button class = "open-menu"><img class="logo" src="../static/images/25231.png"></button>
+    <div class="header">GitHub logger</div>
+  </div>
+</div>
 <div class="menu">
-      <a href="#" class="menu-icon"><span><i class="fa fa-bars" aria-hidden="true"></i>
-      </span></a>
-      <nav class="menu-list">
-        <a href="#">Ссылка</a>
-        <a href="#">Ссылка</a>
-        <a href="#">Ссылка</a>
-        <a href="#">Ссылка</a>
-        <a href="#"></a>
-      </nav>
-    </div>
-    <section>
-        <h1>Информация</h1>
-    </section>
+  <div class="close-menu">CLOSE</div>
+  <ul>
+      <li><a href="#">link_4</a></li>
+      <li><a href="#">link_3</a></li>
+      <li><a href="#">link_2</a></li>
+      <li><a href="#">link_1</a></li>
+      <button class="add-repo" href="#add-repo">+</button>
+  </ul>
+</div>
+<section>
+  Информация
+</section>
 {% endblock %}
