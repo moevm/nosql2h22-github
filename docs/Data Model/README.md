@@ -63,65 +63,93 @@
 ![ModelData](NoSQL.png)
 ## Оценка удельного объема информации, хранимой в модели
 Пусть в базе данных N1 пользователей N2 репозиториев N3 пулреквестов  N4 коммитов и N5 Issue .
-Максимальные размеры полей документа:
-UserName:128 bytes
-Password: 128 bytes
-Token: 93 bytes
-Repos: 760 bytes
+### User
+- Максимальные размеры полей документа:
+- UserName:128 bytes
+- Password: 128 bytes
+- Token: 93 bytes
+- Repos: 760 bytes
 
+Чистый объём документа user:  1109 bytes 
 
-Name: 256bytes
-Id: 8 bytes
-Issues: 760
-Commits:760
-Pull_Requests:760
+Фактической объём документа user: 1109 bytes 
 
+### Repo
+- Name: 256bytes
+- Id: 8 bytes
+- Issues: 760
+- Commits:760
+- Pull_Requests:760
 
-Id:8 bytes
-Author_Name:128 bytes
-Author_login:128 bytes
-Author_email:128 bytes
-Data_and_time:20 bytes
-Changed_files:760bytes
+Чистый объём документа Repo:  2544 bytes 
 
-Id:8 bytes
-Title:256 bytes
-State: 100 bytes
-Commit_info: 100bytes
-Creator_name: 128 bytes
-Creation_date:20 bytes
-Creator_login: 128 bytes
-Creator_email: 128 bytes
-Changed_files:760bytes
-Comment_body:1000 bytes
-Comment_created_date:20 bytes
-Comment_author_name:128 bytes
-Comment_author_login:128 bytes
-Comment_author_email:128 bytes
-Merger_name:128 bytes
-Merger_login:128 bytes
-Merger_email:128 bytes
+Фактической объём документа Repo: 2536 bytes 
 
-Id:8 bytes
-Number:8 bytes
-Title:256 bytes
-State:100 bytes
-Task: 1000 bytes
-Creation_date:20 bytes
-Creator_name:128 bytes
-Creator_login:128 bytes
-Creator_email:128 bytes
-Changed_files:760 bytes
-Comment_date:20 bytes
-Comment_body:1000 bytes
-Comment_author_name:128 bytes
-Comment_author_login:128 bytes
-Comment_author_email:128 bytes
+### Commit
 
+- Id:8 bytes
+- Author_Name:128 bytes
+- Author_login:128 bytes
+- Author_email:128 bytes
+- Data_and_time:20 bytes
+- Changed_files:760bytes
 
-Тогда у нас будет N1(1109)+N2(2536)+N3(3932)+N4(1172)+N5(3416) bytes максимальной объём базы
+Чистый объём документа commit: 1164  bytes 
+
+Фактической объём документа commit: 1172 bytes 
+
+### Pull_Request
+
+- Id:8 bytes
+- Title:256 bytes
+- State: 100 bytes
+- Commit_info: 100bytes
+- Creator_name: 128 bytes
+- Creation_date:20 bytes
+- Creator_login: 128 bytes
+- Creator_email: 128 bytes
+- Changed_files:760bytes
+- Comment_body:1000 bytes
+- Comment_created_date:20 bytes
+- Comment_author_name:128 bytes
+- Comment_author_login:128 bytes
+- Comment_author_email:128 bytes
+- Merger_name:128 bytes
+- Merger_login:128 bytes
+- Merger_email:128 bytes
+
+Чистый объём документа Pull_Request: 3408  bytes 
+
+Фактической объём документа Pull_Request: 3416 bytes 
+
+### Issue
+
+- Id:8 bytes
+- Number:8 bytes
+- Title:256 bytes
+- State:100 bytes
+- Task: 1000 bytes
+- Creation_date:20 bytes
+- Creator_name:128 bytes
+- Creator_login:128 bytes
+- Creator_email:128 bytes
+- Changed_files:760 bytes
+- Comment_date:20 bytes
+- Comment_body:1000 bytes
+- Comment_author_name:128 bytes
+- Comment_author_login:128 bytes
+- Comment_author_email:128 bytes
+
+Чистый объём документа Issue: 3932  bytes 
+
+Фактической объём документа Issue: 3940 bytes 
+
 ## Избыточность модели
-Модель не содержит дополнительных данных, помимо исходных, а значит не является избыточной.
+Пусть в базе данных N<sub>1</sub>=5 =5 пользователей N<sub>2</sub>=10 репозиториев N<sub>3</sub>=100 пулреквестов  N<sub>4</sub>=120 коммитов и N<sub>5</sub>=10 Issue
+
+$\sqrt{3x-1}+(1+x)^2$
+
+V_clear
 
 ## Направление роста модели при увеличении количества объектов каждой сущности
 Размер базы данных растет линейно по каждому параметру.
