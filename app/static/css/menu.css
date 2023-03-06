@@ -9,7 +9,7 @@
   top: 0;
   display: block;
 }
-.topnav a {
+.log-out {
   float: right;
   background-color: #2d2e2d;
   color: white;
@@ -19,16 +19,12 @@
   font-size: 22px;
 }
 /* Change the color of links on hover */
-.topnav a:hover {
+.log-out{
   background-color: #272b27;
   bottom: 0;
 }
 
 /* Add a color to the active/current link */
-.topnav a.active {
-  background-color: #4CAF50;
-  color: white;
-}
 .wrap {
   display: flex;
   flex-flow: row wrap;
@@ -43,12 +39,16 @@
 }
 
 .logo {
-  width: 48px;
-  height: 48px;
+  width: 54px;
+  height: 54px;
   display: block;
   margin-left: auto;
   margin-right: auto;
   width: 100%;
+}
+
+.logo:hover {
+  filter: invert(1);
 }
 
 .header {
@@ -60,10 +60,9 @@
   font-weight: bolder;
 }
 /************/
+
 .menu {
-  margin-top: 55px;
-  display: block;
-  left: -285px; /* прячем меню */
+  left: -285px;
   bottom: 0;
   height: 94%;
   position: fixed;
@@ -72,32 +71,53 @@
   overflow-y: scroll;
 }
 
+.menu button{
+  background-color: #272b27;
+  border: none;
+  cursor: pointer;
+  font-size: 32px;
+  font-family: "Robto";
+  font-weight: bold;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
 .menu ul {
   list-style: none;
   margin: 0;
   padding: 0;
 }
- 
-.menu li {
+
+.repo-list {
   font-family: 'Roboto';
   line-height: 32px;
   padding-bottom: 3px;
-  padding-left: 20px;
   padding-top: 3px;
 }
- 
-.menu li:hover {
-  cursor: pointer;
+
+.repo-list:hover {
   background-color: #555;
-  }
- 
+}
+
+.repo-link {
+  display: flexbox;
+  width: 100%;
+  padding: 11px 16px;
+  padding-right: 170px;
+}
+
+.repo-link:hover {
+  cursor: pointer;
+  width: 100;
+}
+
 .menu a {
   color: #fff;
   font-size: 15px;
   text-decoration: none;
   text-transform: uppercase;
 }
- 
+
 .close-menu {
   cursor: pointer;
   padding-left: 205px;
@@ -112,22 +132,28 @@
 }
 
 .add-repo {
-  text-align: center;
-  align-self: center;
-  font-size: 32px;
-  font-family: "Robto";
-  font-weight: bold;
   color:#4CAF50;
   background-color: #272b27;
-  width: 100%;
-  border: none;
-
+  width: 100%;  
 }
 
 .add-repo:hover {
   background-color: #555;
+}
+
+.del-repo {
+  float: right;
+}
+.del-button {
+  height: 32px;
+  display: block;
+  width: 100%;
   cursor: pointer;
 }
+.del-button:hover {
+  filter: invert(1);
+}
+
 
 section {
   height: 100vh;

@@ -1,14 +1,6 @@
 
-var main = function() { //главная функция
-  
-  $('.open-menu').hover(
-    function(){
-      $('.logo').attr('src', '../static/images/252311.png');
-    },
-    function(){
-      $('.logo').attr('src', '../static/images/25231.png');
-    });
 
+var main = function() { //главная функция
   $('.open-menu').click(
     function() {
       $('.menu').animate({left: '0px'}, 200);
