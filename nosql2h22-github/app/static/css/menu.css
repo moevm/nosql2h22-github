@@ -1,0 +1,178 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto:300);
+
+.topnav {
+  background-color: white;
+  overflow: hidden;
+  position: fixed;
+  width: 100%;
+  left: 0;
+  top: 0;
+  display: block;
+}
+.log-out {
+  float: right;
+  background-color: #2d2e2d;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 22px;
+}
+/* Change the color of links on hover */
+.log-out{
+  background-color: #272b27;
+  bottom: 0;
+}
+
+/* Add a color to the active/current link */
+.wrap {
+  display: flex;
+  flex-flow: row wrap;
+}
+.open-menu {
+  border: none;
+  cursor: pointer;
+  background-color: white;
+}
+.open-menu:hover {
+  background-color: #272b27;
+}
+
+.logo {
+  width: 54px;
+  height: 54px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+}
+
+.logo:hover {
+  filter: invert(1);
+}
+
+.header {
+  color: black;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 22px;
+  font-weight: bolder;
+}
+/************/
+
+.menu {
+  left: -285px;
+  bottom: 0;
+  height: 94%;
+  position: fixed;
+  width: 285px;
+  background-color: #272b27;
+  overflow-y: scroll;
+}
+
+.menu button{
+  background-color: #272b27;
+  border: none;
+  cursor: pointer;
+  font-size: 32px;
+  font-family: "Robto";
+  font-weight: bold;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.menu ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.repo-list {
+  font-family: 'Roboto';
+  line-height: 32px;
+  padding-bottom: 3px;
+  padding-top: 3px;
+}
+
+.repo-list:hover {
+  background-color: #555;
+}
+
+.repo-link {
+  display: flexbox;
+  width: 100%;
+  padding: 11px 16px;
+  padding-right: 170px;
+}
+
+.repo-link:hover {
+  cursor: pointer;
+  width: 100;
+}
+
+.menu a {
+  color: #fff;
+  font-size: 15px;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.close-menu {
+  cursor: pointer;
+  padding-left: 205px;
+  padding-top: 10px;
+  padding-bottom: 6px;
+  font-family: 'Roboto';
+  color: #fff;
+}
+
+.close-menu:hover {
+  background-color: #555;
+}
+
+.add-repo {
+  color:#4CAF50;
+  background-color: #272b27;
+  width: 100%;  
+}
+
+.add-repo:hover {
+  background-color: #555;
+}
+
+.del-repo {
+  float: right;
+}
+.del-button {
+  height: 32px;
+  display: block;
+  width: 100%;
+  cursor: pointer;
+}
+.del-button:hover {
+  filter: invert(1);
+}
+
+
+section {
+  height: 100vh;
+  display: flex;
+  justify-content: center;   
+  color: #fff;
+  margin-top: 64px;
+}
+.section_active {
+  transform: translateX(25%);
+}
+
+body {
+  background-color: #1a1a1a;
+  font-family: "Roboto", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  left: 0;
+  margin: 0;
+  overflow: hidden;
+  position: relative;      
+}
