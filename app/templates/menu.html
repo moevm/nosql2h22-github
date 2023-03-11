@@ -7,6 +7,8 @@ GitHub logger
 <link rel="stylesheet" href="{{ url_for('static', filename='css/menu.css') }}">
 <div class="topnav">
   <a class="log-out" href="/authorization">LOG OUT</a>
+  <div class="user-name">{{stats['user_name']}}</div>
+  <img class="user-logo" src="./static/images/user.png"></img>
   <div class="wrap">
     <a class = "open-menu"><img class="logo" src="../static/images/25231.png"></a>
     <div class="header">GitHub logger</div>
@@ -15,7 +17,7 @@ GitHub logger
 <div class="menu">
   <div class="close-menu">CLOSE</div>
   <ul>
-      {% for link in links %}
+      {% for link in stats['links'] %}
       <div class="repo-list">
         <a class="repo-link" href={{'#' + link.name}}>{{link.name}}</a>
         <a class="del-repo"><img class="del-button" src="../static/images/delete-button.png"></a>

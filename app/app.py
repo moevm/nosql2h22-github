@@ -24,9 +24,11 @@ def statistic():
              {'name': 'link_3'}, 
              {'name': 'link_4'}, 
              {'name': 'link_5'}, ]
-
+    stat = {'links': links,
+            'user_name': 'Username'}
+    
     return render_template('menu.html',
-                           links=links)
+                           stats=stat)
 
 if __name__ == "__main__":
     app.run(debug=True)

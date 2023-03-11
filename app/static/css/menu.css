@@ -18,6 +18,22 @@
   text-decoration: none;
   font-size: 22px;
 }
+
+.user-name {
+  float: right;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 22px;
+}
+
+.user-logo {
+  float: right;
+  width: 32px;
+  height: 32px;
+  display: block;
+  padding-top: 13px;
+}
 /* Change the color of links on hover */
 .log-out:hover{
   background-color: #272b27;
