@@ -1,5 +1,4 @@
 from flask import Flask, render_template, url_for, request, redirect
-import pymongo
 import random
 LINKS = [
     {'name': 'github', 'url': 'https://github.com/'}
@@ -14,7 +13,12 @@ def home():
 
 @app.route('/authorization', methods=['POST', 'GET'])
 def authorization():
-
+    RegUsername = request.form.get('RegUsername')
+    RegPassword = request.form.get('RegPassword')
+    RegToken = request.form.get('Token')
+    LoginUsername = request.form.get('LoginUsername')
+    LoginPassword = request.form.get('LoginPassword')
+    #a = NewUser[{'UserName': RegUsername}, {'Password': RegPassword}, {'Token': RegToken}]
     return render_template('authorization.html')
 
 @app.route('/menu', methods=['POST', 'GET'])

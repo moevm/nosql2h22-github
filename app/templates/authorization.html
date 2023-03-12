@@ -9,17 +9,17 @@ GitHub logger
     <div class="form">
       <div class="logo"><img class="logo" src="../static/images/25231.png"></div>
       <p class="header">GitHub logger</p>
-      <form class="register-form">
-        <input type="text" name="RegUsername" placeholder="Username"/>
-        <input type="password" name="RegPassword" placeholder="Password"/>
-        <input type="text" name="Token" placeholder="Token"/>
-        <button>create</button>
+      <form class="register-form" method="POST">
+        <input type="text" name="RegUsername" placeholder="Username">
+        <input type="password" name="RegPassword" placeholder="Password">
+        <input type="text" name="Token" placeholder="Token">
+        <input type="submit" id="btn" value="create">
         <p class="message">Already registered? <a href="#">Sign In</a></p>
       </form>
-      <form class="login-form">
+      <form class="login-form" method="POST">
         <input type="text" name="LoginUsername" placeholder="Username"/>
         <input type="password" name="LoginPassword" placeholder="Password"/>
-        <button>login</button>
+        <input type="submit" id="btn" value="login">
         <p class="message">Not registered? <a href="#">Create an account</a></p>
       </form>
     </div>
