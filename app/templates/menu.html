@@ -17,28 +17,65 @@ GitHub logger
 <div class="menu">
   <div class="close-menu">CLOSE</div>
   <ul>
-      {% for link in stats['links'] %}
-      <div class="repo-list">
-        <a class="repo-link" href={{'#' + link.name}}>{{link.name}}</a>
+    {% for link in stats['links'] %}
+    <div class="repo-list">
+        <a id="repo-link-{{link.name}}" class="repo-link">{{link.name}}</a>
         <a class="del-repo"><img class="del-button" src="../static/images/delete-button.png"></a>
       </div>
       {% endfor %}
       <button class="add-repo" href="#add-repo">+</button>
-  </ul>
-</div>
-<div class="info-field">
-  <div class="dropdown">
-    <button class="dropbtn">Parameter</button>
-    <div class="dropdown-content">
-      <a class="ch-issues">Issues</a>
-      <a class="ch-pr">Pull Request</a>
-      <a class="ch-commits">Commits</a>
+    </ul>
+  </div>
+  {% for link in stats['links'] %}
+  <div id="info-field" class="info-field-{{link.name}}">
+    <div class="dropdown">
+      <button class="dropbtn">Parameter</button>
+      <div class="dropdown-content">
+        <a class="ch-issues-{{link.name}}">Issues</a>
+        <a class="ch-pr-{{link.name}}">Pull Request</a>
+        <a class="ch-commits-{{link.name}}">Commits</a>
+      </div>
     </div>
-  </div>
-  <div class="statistics">
-    <div class="issues">Issues</div>
-    <div class="pull-requests">Pull requests</div>
-    <div class="commits">Commits</div>
-  </div>
+    <div class="statistics">
+      <div class="issues-{{link.name}}">Issues String({{link.name}})</div>
+      <div class="pull-requests-{{link.name}}">Pull requestsString({{link.name}})</div>
+      <div class="commits-{{link.name}}">Commits String({{link.name}})</div>
+    </div>
 </div>
+{% endfor %}
+
+
+<script>
+
+  {% for link in stats['links'] %}
+    $("#repo-link-{{link.name}}").click(
+      function(){
+        {% for link_i in stats['links'] %}
+          $('.info-field-{{link_i.name}}').attr('style', 'display: none');
+        {% endfor %}
+          $('.info-field-{{link.name}}').attr('style', 'display: block');
+    });
+    console.log("test");
+    $('.ch-issues-{{link.name}}').click(
+      function(){
+        $('.issues-{{link.name}}').attr('style', 'display: block');
+        $('.pull-requests-{{link.name}}').attr('style', 'display: none');
+        $('.commits-{{link.name}})').attr('style', 'display: none');
+    });
+    
+    $('.ch-pr-{{link.name}}').click(                                                       
+      function(){
+        $('.issues-{{link.name}}').attr('style', 'display: none');
+        $('.pull-requests-{{link.name}}').attr('style', 'display: block');
+        $('.commits-{{link.name}}').attr('style', 'display: none');
+      });
+          
+    $('.ch-commits-{{link.name}}').click(
+      function(){
+        $('.issues-{{link.name}}').attr('style', 'display: none');
+        $('.pull-requests-{{link.name}}').attr('style', 'display: none');
+        $('.commits-{{link.name}}').attr('style', 'display: block');
+    });
+  {% endfor %}
+</script>
 {% endblock %}

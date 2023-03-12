@@ -20,10 +20,7 @@ def authorization():
 @app.route('/menu', methods=['POST', 'GET'])
 def statistic():
     links = [{'name': 'link_1'},
-             {'name': 'link_2'}, 
-             {'name': 'link_3'}, 
-             {'name': 'link_4'}, 
-             {'name': 'link_5'}, ]
+             {'name': 'link_2'}, ]
     stat = {'links': links,
             'user_name': 'Username'}
     
