@@ -1,5 +1,4 @@
 from github import Github, Repository, GithubException
-import uuid
 import pprint
 import datetime
 import json
@@ -7,7 +6,7 @@ from pymongo import MongoClient
 
 LINK= "PsyholiricPavel/MathPackages"
 #LINK= "moevm/mse_automatic_export_of_schedules_and_statistics"
-TOKEN="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"
+TOKEN="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"
 
 client = MongoClient('localhost', 27017)
 
@@ -119,7 +118,6 @@ def NewRepoByURL(rref,user):
     g = Github(user['Token'])
     repo = g.get_repo(rref)
     rt={}
-    #rt['Id']=uuid.uuid1()
     rt['Name']=repo.name
     rt['Issues']=getIssues(repo)
     rt['Commits']=getComms(repo)
@@ -150,18 +148,40 @@ def GetReposOfUser(userN):
 def GetUser(userN):
     cursor =dbUsers.find_one({'UserName': userN})
     return cursor
+def LogUser(data):
+    cursor =dbUsers.find_one({'UserName': data['login']})
+    if "Password" not in data or not data['Password']:
+        return "No Password"
+    if cursor['Password']!= data['Password']:
+        return "Wrong Password"
+    else:
+        return "OK"
 dat={
     'UserName':"PsyholiricPavel",
      'Password':"123",
      'Token':TOKEN,
      }
+dat2={
+    'login':"PsyholiricPavel",
+     'Password':"124",
+     }
+dat3={
+    'login':"PsyholiricPavel",
+     'Password':"123",
+     }
+dat4={
+    'login':"PsyholiricPavel"
+     }
 #user=NewUser(dat)
-user=GetUser('PsyholiricPavel')
+#user=GetUser('PsyholiricPavel')
 #NewRepoByURL("PsyholiricPavel/AiSD",user)
 #NewRepoByURL("PsyholiricPavel/Ford_Uorshell",user)
 #NewRepoByURL("PsyholiricPavel/MathPackages",user)
 #NewRepoByURL("PsyholiricPavel/nosql2h22-github",user)
 #NewRepoByURL("PsyholiricPavel/Practice-",user)
 #print("==============================\n",GetUser('PsyholiricPavel'),"\n==============================\n")
-pprint.pprint(GetReposOfUser('PsyholiricPavel'))
+#pprint.pprint(GetReposOfUser('PsyholiricPavel'))
+print(LogUser(dat2))
+print(LogUser(dat3))
+print(LogUser(dat4))
 
