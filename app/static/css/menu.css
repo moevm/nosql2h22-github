@@ -191,6 +191,7 @@ td, th {padding: 5px; width: 100px}
 /**********************************/
 
 #info-field {
+  display: none;
   justify-content: center;   
   color: #fff;
   margin-top: 64px;
@@ -199,6 +200,7 @@ td, th {padding: 5px; width: 100px}
 .statistics div{
   width: 100%;
   text-align: center;
+  display: none;
 }
 
 

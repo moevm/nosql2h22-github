@@ -46,7 +46,7 @@ GitHub logger
 
 
 <script>
-
+var main_2 = function(){
   {% for link in stats['links'] %}
     $("#repo-link-{{link.name}}").click(
       function(){
@@ -77,5 +77,6 @@ GitHub logger
         $('.commits-{{link.name}}').attr('style', 'display: block');
     });
   {% endfor %}
+};
 </script>
 {% endblock %}
