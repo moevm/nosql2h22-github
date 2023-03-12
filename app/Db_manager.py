@@ -13,11 +13,8 @@ client = MongoClient('localhost', 27017)
 
 db = client["Data"] 
 dbUsers = db["Users"]
-#dbCommits = db["Commits"]
-#dbIssues = db["Issues"]
-#dbPR = db["PullRequests"]
 dbRepos = db["Repos"]
-print("Available databases:", client.list_database_names())
+#print("Available databases:", client.list_database_names())
 g = Github(TOKEN)
 repo = g.get_repo(LINK)
 def NewUser(data):
@@ -30,12 +27,11 @@ def NewUser(data):
     for repo in user.get_repos():
         list.append(repo.name)
 
-    NUser['Repos']=list
+    NUser['Repos']=[]
     #NUser = json.dumps(NUser)
     dbUsers.insert_one(NUser)
     print(NUser)
-    return NUser
-    
+    return NUser   
 def getComms(repo):
     #repo = g.get_repo(LINK)
     comms=[]
@@ -128,10 +124,13 @@ def NewRepoByURL(rref,user):
     rt['Issues']=getIssues(repo)
     rt['Commits']=getComms(repo)
     rt['Pull_Requests']=getPR(repo)
-    pprint.pprint(rt)
+    #pprint.pprint(rt)
     #rt = json.dumps(rt)
     dbRepos.insert_one(rt)
-    return
+    user['Repos'].append(repo.name)
+    dbUsers.update_one({"UserName":user["UserName"]},{'$push':{'Repos':rt['Name']}})
+    #pprint.pprint(user)
+    return rt
 def NewRepo(data):
     repo={}
     repo['Id']=data['Id']
@@ -141,9 +140,28 @@ def NewRepo(data):
     repo['Pull_Requests']=data['Pull_Requests']
     #dbRepos.insert_one(repo)
     return
-dat={'UserName':"PsyholiricPavel",
+def GetReposOfUser(userN):
+    cursor =dbUsers.find_one({'UserName': userN})
+    print(cursor['Repos'])
+    repos=[]
+    for repo in cursor['Repos']:
+        repos.append(dbRepos.find_one({'Name':repo}))
+    return repos
+def GetUser(userN):
+    cursor =dbUsers.find_one({'UserName': userN})
+    return cursor
+dat={
+    'UserName':"PsyholiricPavel",
      'Password':"123",
      'Token':TOKEN,
      }
-user=NewUser(dat)
-NewRepoByURL(LINK,user)
+#user=NewUser(dat)
+user=GetUser('PsyholiricPavel')
+#NewRepoByURL("PsyholiricPavel/AiSD",user)
+#NewRepoByURL("PsyholiricPavel/Ford_Uorshell",user)
+#NewRepoByURL("PsyholiricPavel/MathPackages",user)
+#NewRepoByURL("PsyholiricPavel/nosql2h22-github",user)
+#NewRepoByURL("PsyholiricPavel/Practice-",user)
+#print("==============================\n",GetUser('PsyholiricPavel'),"\n==============================\n")
+pprint.pprint(GetReposOfUser('PsyholiricPavel'))
+
