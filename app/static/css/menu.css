@@ -13,12 +13,11 @@
   float: right;
   background-color: #2d2e2d;
   color: white;
-  text-align: center;
-  padding: 14px 16px;
+  padding: 12px;
   text-decoration: none;
   font-size: 22px;
+  cursor: pointer;
 }
-
 .user-name {
   float: right;
   text-align: center;
@@ -106,22 +105,27 @@
   padding: 0;
 }
 
+ul div:hover {
+  background-color: #555;
+}
 .repo-list {
   font-family: 'Roboto';
   line-height: 32px;
   padding-bottom: 3px;
   padding-top: 3px;
-}
 
+}
+.wrap-link {
+  width: 205px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 .repo-list:hover {
   background-color: #555;
 }
 
 .repo-link {
-  display: flexbox;
-  width: 100%;
   padding: 11px 16px;
-  padding-right: 150px;
 }
 
 .repo-link:hover {
@@ -160,16 +164,16 @@
 }
 
 .del-repo {
+  background-color: #2d2e2d;
+  color: white;
   float: right;
-}
-.del-button {
-  height: 32px;
-  display: block;
-  width: 100%;
+  margin-top: 5px;
+  margin-right: 5px;
+  border: 0;
   cursor: pointer;
 }
-.del-button:hover {
-  filter: invert(1);
+.del-repo:hover {
+  background-color: #555;
 }
 
 /**********************************/
