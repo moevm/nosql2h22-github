@@ -11,7 +11,7 @@ GitHub logger
     <input type="hidden" name="LogOut" value="1">
     <input class="log-out" type="submit" value="LOG OUT"/>
     </form>
-  <div class="user-name">{{stats['user_name']}}</div>
+  <div class="user-name">{{name}}</div>
   <img class="user-logo" src="./static/images/user.png"></img>
   <div class="wrap">
     <a class = "open-menu"><img class="logo" src="../static/images/25231.png"></a>
@@ -21,34 +21,54 @@ GitHub logger
 <div class="menu">
   <div class="close-menu">CLOSE</div>
   <ul>
-    {% for link in stats['links'] %}
+    {% for link in repos %}
     <div class="repo-list">
       <form method="POST">
-      <input type="hidden" name="del-this-repo" value="{{link.name}}">
+      <input type="hidden" name="del-this-repo" value="{{link}}">
       <input class="del-repo" type="submit" value="X" name="test"/>
       </form>
       <div class="wrap-link">
-      <a id="repo-link-{{link.name}}" class="repo-link">{{link.name}}</a>
+      <a id="repo-link-{{link}}" class="repo-link">{{link}}</a>
       </div>
     </div>
       {% endfor %}
       <button class="add-repo" href="#add-repo">+</button>
     </ul>
   </div>
-  {% for link in stats['links'] %}
-  <div id="info-field" class="info-field-{{link.name}}">
+  {% for link in repos %}
+  <div id="info-field" class="info-field-{{link}}">
     <div class="dropdown">
       <button class="dropbtn">Parameter</button>
       <div class="dropdown-content">
-        <a class="ch-issues-{{link.name}}">Issues</a>
-        <a class="ch-pr-{{link.name}}">Pull Request</a>
-        <a class="ch-commits-{{link.name}}">Commits</a>
+        <a class="ch-issues-{{link}}">Issues</a>
+        <a class="ch-pr-{{link}}">Pull Request</a>
+        <a class="ch-commits-{{link}}">Commits</a>
       </div>
     </div>
     <div class="statistics">
-      <div class="issues-{{link.name}}">Issues String({{link.name}})</div>
-      <div class="pull-requests-{{link.name}}">Pull requestsString({{link.name}})</div>
-      <div class="commits-{{link.name}}">Commits String({{link.name}})</div>
+      <div class="issues-{{link}}">
+        <div>Issues of {{link}}</div>
+        <table>
+          <caption>Comments</caption>
+          <tr>
+            <th>Author email</th>
+            <th>Author login</th>
+            <th>Author_email</th>
+            <th>Body</th>
+            <th>Date</th>
+          </tr>
+          {% for issue in issues['{{link}}'] %}
+          <tr><td>{{issue['']}}</td><td></td><td></td><td></td><td></td></tr>
+          {% endfor %}  
+
+        </table>
+      </div>
+      <div class="pull-requests-{{link}}">Pull requestsString({{link}})</div>
+      <div class="commits-{{link}}">
+        <div>Commits of {{link}}</div>
+        
+
+      </div>
     </div>
 </div>
 
@@ -65,42 +85,42 @@ GitHub logger
 
 <script>
 var main_2 = function(){
-  {% for link in stats['links'] %}
-    $("#repo-link-{{link.name}}").click(
+  {% for link in repos %}
+    $("#repo-link-{{link}}").click(
       function(){
-        {% for link_i in stats['links'] %}
+        {% for link_i in repos %}
           $('.info-field-{{link_i.name}}').attr('style', 'display: none');
         {% endfor %}
-          $('.info-field-{{link.name}}').attr('style', 'display: block');
+          $('.info-field-{{link}}').attr('style', 'display: block');
           $('.add-form').attr('style', 'display: none')
 
     });
     console.log("test");
-    $('.ch-issues-{{link.name}}').click(
+    $('.ch-issues-{{link}}').click(
       function(){
-        $('.issues-{{link.name}}').attr('style', 'display: block');
-        $('.pull-requests-{{link.name}}').attr('style', 'display: none');
-        $('.commits-{{link.name}}').attr('style', 'display: none');
+        $('.issues-{{link}}').attr('style', 'display: block');
+        $('.pull-requests-{{link}}').attr('style', 'display: none');
+        $('.commits-{{link}}').attr('style', 'display: none');
     });
     
-    $('.ch-pr-{{link.name}}').click(                                                       
+    $('.ch-pr-{{link}}').click(                                                       
       function(){
-        $('.issues-{{link.name}}').attr('style', 'display: none');
-        $('.pull-requests-{{link.name}}').attr('style', 'display: block');
-        $('.commits-{{link.name}}').attr('style', 'display: none');
+        $('.issues-{{link}}').attr('style', 'display: none');
+        $('.pull-requests-{{link}}').attr('style', 'display: block');
+        $('.commits-{{link}}').attr('style', 'display: none');
       });
           
-    $('.ch-commits-{{link.name}}').click(
+    $('.ch-commits-{{link}}').click(
       function(){
-        $('.issues-{{link.name}}').attr('style', 'display: none');
-        $('.pull-requests-{{link.name}}').attr('style', 'display: none');
-        $('.commits-{{link.name}}').attr('style', 'display: block');
+        $('.issues-{{link}}').attr('style', 'display: none');
+        $('.pull-requests-{{link}}').attr('style', 'display: none');
+        $('.commits-{{link}}').attr('style', 'display: block');
     });
   {% endfor %}
     $('.add-repo').click(
       function(){
-        {% for link in stats['links'] %}
-          $('.info-field-{{link.name}}').attr('style', 'display: none');
+        {% for link in repos %}
+          $('.info-field-{{link}}').attr('style', 'display: none');
         {% endfor %}
         $('.add-form').attr('style', 'display: block')
       }
