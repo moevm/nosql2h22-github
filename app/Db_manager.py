@@ -10,7 +10,18 @@ client = MongoClient('localhost', 27017)
 db = client["Data"] 
 dbUsers = db["Users"]
 dbRepos = db["Repos"]
-
+def TokenValidator(user):
+    g = Github(user['Token'])
+    try:
+        u=g.get_user()
+        u.id
+    except GithubException:
+        return [False,"BadToken"]
+    else:
+        if user['UserName']!=u.login:
+            return [False,"Not your token"]
+        else:
+            return [True,"GoodToken"]
 def isRegistredAlready(userN):
     return GetUser(userN)!=None
 def Authorization(data):
