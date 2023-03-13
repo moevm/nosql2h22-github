@@ -5,6 +5,28 @@ GitHub logger
 
 {% block body %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/authorization.css') }}">
+<div class="json">
+<form class="download-json" method="POST">
+  <input type="hidden" name="download" value="True"/>
+  <input id="btn" class="dwnld-json" type="submit" value="Download JSON"/>
+</form>
+<form class="upload-json" method="POST" enctype="multipart/form-data">
+  <label class="input-file">
+    <span>Choose file</span>
+    <input type="file" name="upload-user"/>		
+  </label>
+  <input type="hidden" name="users-alert" value="True"/>
+  <input id="btn" class="upld-json" type="submit" value="Upload JSON with users"/>
+</form>
+<form class="upload-json" method="POST" enctype="multipart/form-data">
+  <label class="input-file">
+    <span>Choose file</span>
+    <input type="file" name="upload-repos"/>		
+  </label>
+  <input type="hidden" name="repo-alert" value="True"/>
+  <input id="btn" class="upld-json" type="submit" value="Upload JSON with repos"/>
+</form>
+</div>
 <div class="login-page">    
     <div class="form">
       <div class="logo"><img class="logo" src="../static/images/25231.png"></div>

@@ -6,7 +6,11 @@ GitHub logger
 {% block body %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/menu.css') }}">
 <div class="topnav">
-  <a class="log-out" href="/authorization">LOG OUT</a>
+
+  <form method="POST">
+    <input type="hidden" name="LogOut" value="1">
+    <input class="log-out" type="submit" value="LOG OUT"/>
+    </form>
   <div class="user-name">{{stats['user_name']}}</div>
   <img class="user-logo" src="./static/images/user.png"></img>
   <div class="wrap">
