@@ -42,7 +42,16 @@ GitHub logger
       <div class="commits-{{link.name}}">Commits String({{link.name}})</div>
     </div>
 </div>
+
 {% endfor %}
+<div class="add-form">
+  <form class="add-repo-form" method="POST">
+    <div>Input repository name you want to add</div>
+    <input type="text" name="RepoName" placeholder="Name of your new repo">
+    <br/>
+    <input type="submit" id="btn" value="Add">
+  </form>
+</div>
 
 
 <script>
@@ -54,6 +63,8 @@ var main_2 = function(){
           $('.info-field-{{link_i.name}}').attr('style', 'display: none');
         {% endfor %}
           $('.info-field-{{link.name}}').attr('style', 'display: block');
+          $('.add-form').attr('style', 'display: none')
+
     });
     console.log("test");
     $('.ch-issues-{{link.name}}').click(
@@ -77,6 +88,14 @@ var main_2 = function(){
         $('.commits-{{link.name}}').attr('style', 'display: block');
     });
   {% endfor %}
+    $('.add-repo').click(
+      function(){
+        {% for link in stats['links'] %}
+          $('.info-field-{{link.name}}').attr('style', 'display: none');
+        {% endfor %}
+        $('.add-form').attr('style', 'display: block')
+      }
+    );
 };
 </script>
 {% endblock %}
