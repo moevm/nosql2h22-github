@@ -10,7 +10,27 @@ client = MongoClient('localhost', 27017)
 db = client["Data"] 
 dbUsers = db["Users"]
 dbRepos = db["Repos"]
-
+def TokenValidator(user):
+    g = Github(user['Token'])
+    try:
+        u=g.get_user()
+        u.id
+    except GithubException:
+        return [False,"BadToken"]
+    else:
+        if user['UserName']!=u.login:
+            return [False,"Not your token"]
+        else:
+            return [True,"GoodToken"]
+def URLValidator(URL,user):
+    g = Github(user['Token'])
+    try:
+        u=g.get_repo(URL)
+        u.name
+    except GithubException:
+        return [False,"BadURL"]
+    else:
+        return [True,"GoodToken"]
 def isRegistredAlready(userN):
     return GetUser(userN)!=None
 def Authorization(data):
@@ -140,27 +160,24 @@ def GetReposOfUserDB(userN):
 def GetUser(userN):
     cursor =dbUsers.find_one({'UserName': userN})
     return cursor
-def ExportToJSON(filename,whichBase='r'):
+def ExportToJSON(filename="dumpDatabase.json",whichBase='r'):
     base =dbUsers if whichBase=='u' else dbRepos
     cursor=base.find()
-    with open('jsons/'+filename+'.json', 'w', encoding="utf-8") as f:
+    with open('jsons/'+filename, 'w', encoding="utf-8") as f:
         f.write(json_util.dumps(cursor,indent=4))
-    return
-def ImportFromJSON(filename,whichBase='r'):
+    return 'jsons/'+filename
+def ImportFromJSON(file,whichBase='r'):
     base =dbUsers if whichBase=='u' else dbRepos
-    requesting = []
-
-    with open('jsons/'+filename+'.json',) as f:
-        file_data = json.load(f)
+    file_data = json.load(file.stream)
     for dt in file_data:
         del dt['_id']
     if isinstance(file_data, list):
         base.insert_many(file_data) 
     else:
         base.insert_one(file_data)
+    print(file_data)
     return
 def OutTable(name,want):
     cursor =dbRepos.find_one({'Name': name})
     return cursor[want]
 
-# Проверка токена!

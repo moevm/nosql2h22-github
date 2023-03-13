@@ -1,5 +1,5 @@
-from flask import Flask, render_template, url_for, request, redirect
-from Db_manager import *
+from flask import Flask, render_template, url_for, request, redirect, send_file
+from DB_manager import *
 import pprint
 links = [{'name': 'link_1'},
              {'name': 'link_2'}]
@@ -22,23 +22,22 @@ def authorization():
     if(user == {}):
         valid_reg= True
         valid_login = True
-        ImportFromJSON("no", 'u')
-        ImportFromJSON("no1", 'r')
+        #ImportFromJSON("no", 'u')
+        #ImportFromJSON("no1", 'r')
         if request.method == "POST":
             f_users = {}
             f_repos = {}
             if (request.form.get('users-alert')== 'True'):
                 f_users = request.files['upload-user']
                 if allowed_file(f_users.filename):
-                    ImportFromJSON("no", 'u')
+                    ImportFromJSON(f_users, 'u')
             if (request.form.get('repo-alert')== 'True'):
                 f_repos = request.files['upload-repos']
                 if allowed_file(f_repos.filename):
-                    print("json!")
+                    ImportFromJSON(f_users, 'r')
             Download = request.form.get('download')
             if Download == 'True':
-                #скачать
-                print('download')    
+                return redirect('download')    
 
             RegUsername = request.form.get('RegUsername')
             RegPassword = request.form.get('RegPassword')
@@ -82,6 +81,10 @@ def authorization():
         return render_template('authorization.html', valid_reg=valid_reg, valid_login=valid_login)
     else:
         return redirect('menu')
+@app.route('/download')
+def downloadFile ():
+    path = "../"+ExportToJSON()
+    return send_file("../"+ExportToJSON(), as_attachment=True)
 
 @app.route('/menu', methods=['POST', 'GET'])
 def menu():
@@ -98,9 +101,11 @@ def menu():
             AddRepoName = request.form.get('RepoName')
             if AddRepoName != None:
             #проверка на валидность
-                NewRepoByURL(AddRepoName,user)
-                print(AddRepoName)
-                links.append({'name': AddRepoName})
+                flag,msg=URLValidator(AddRepoName,user)
+                if flag:
+                    NewRepoByURL(AddRepoName,user)
+                    print(AddRepoName)
+                    links.append({'name': AddRepoName})
             DelRepo = request.form.get('del-this-repo')
             if DelRepo != None:
                 DeleteRepo(DelRepo,user)
