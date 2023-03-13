@@ -2,7 +2,8 @@ from github import Github, Repository, GithubException
 import pprint
 import datetime
 import json
-from pymongo import MongoClient
+import pandas
+from pymongo import MongoClient, InsertOne
 
 LINK= "PsyholiricPavel/MathPackages"
 #LINK= "moevm/mse_automatic_export_of_schedules_and_statistics"
@@ -133,15 +134,6 @@ def NewRepoByURL(rref,user):
     dbUsers.update_one({"UserName":user["UserName"]},{'$addToSet':{'Repos':rt['Name']}}) # $addToSet
     #pprint.pprint(user)
     return
-def NewRepo(data):
-    repo={}
-    repo['Id']=data['Id']
-    repo['Name']=data['Name']
-    repo['Issues']=data['Issues']
-    repo['Commits']=data['Commits']
-    repo['Pull_Requests']=data['Pull_Requests']
-    #dbRepos.insert_one(repo)
-    return
 def DeleteRepo(name,user):
      dbUsers.update_one({'Repos':name, 'UserName':user['UserName']},{'$pull':{'Repos':name}})
      if len(list(dbUsers.find({'Repos':name})))==0:
@@ -165,8 +157,34 @@ def LogUser(data):
         return "Wrong Password"
     else:
         return "OK"
+def ExportToJSON(filename,whichBase='r'):
+    base =dbUsers if whichBase=='u' else dbRepos
+    cursor=base.find()
+    
+    with open(filename+'.json', 'w', encoding="utf-8") as f:
+        item = {}
+        for data in cursor:
+            item['UserName']=data['UserName']
+            item['Password']=data['Password']
+            item['Token']=data['Token']
+            item['Repos'] = data['Repos']
+                     # eSURE_ASCII defaults to true, the Chinese will garbled when export, so there is Chinese, here should be set to FALSE
+            f.write(json.dumps(item, ensure_ascii=False) + "\n")
+
+    return
+def importFromJSON(filename,whichBase='r'):
+    base =dbUsers if whichBase=='u' else dbRepos
+    cursor=base.find()
+    requesting = []
+
+    with open(filename+'.json',) as f:
+        for jsonObj in f:
+            myDict = json.loads(jsonObj)
+            requesting.append(InsertOne(myDict))
+    result = base.bulk_write(requesting)
+    return
 dat={
-    'UserName':"zmm",
+    'UserName':"PsyholiricPavel",
      'Password':"123",
      'Token':TOKEN,
      }
@@ -181,6 +199,7 @@ dat3={
 dat4={
     'login':"PsyholiricPavel"
      }
+
 #user=NewUser(dat)
 #user=GetUser('PsyholiricPavel')
 #NewRepoByURL("PsyholiricPavel/AiSD",user)
@@ -192,3 +211,6 @@ dat4={
 #pprint.pprint(GetReposOfUser('PsyholiricPavel'))
 #DeleteRepo('MathPackages',user)
 print('aaaa')
+importFromJSON("no",'u')
+#ExportToJSON("no",'u')
+# Есть ли такое репо! Авторзиция логинпаролль - вернуть юзер! Дописать изРегистред на булл! ДЖОСОН!!!
