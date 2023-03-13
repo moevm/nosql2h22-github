@@ -1,5 +1,4 @@
 from github import Github, Repository, GithubException
-import uuid
 import pprint
 import datetime
 import json
@@ -7,7 +6,7 @@ from pymongo import MongoClient
 
 LINK= "PsyholiricPavel/MathPackages"
 #LINK= "moevm/mse_automatic_export_of_schedules_and_statistics"
-TOKEN="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"
+TOKEN="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"
 
 client = MongoClient('localhost', 27017)
 
@@ -15,22 +14,24 @@ db = client["Data"]
 dbUsers = db["Users"]
 dbRepos = db["Repos"]
 #print("Available databases:", client.list_database_names())
-g = Github(TOKEN)
-repo = g.get_repo(LINK)
+#g = Github(TOKEN)
+#repo = g.get_repo(LINK)
+def isRegistredAlready(userN):
+    return GetUser(userN)
 def NewUser(data):
     NUser={}
     NUser['UserName']=data['UserName']
     NUser['Password']=data['Password']
     NUser['Token']=data['Token']
     list=[]
-    user = g.get_user(data['UserName'])
-    for repo in user.get_repos():
-        list.append(repo.name)
-
+    #g = Github(NUser['Token'])
+    #user = g.get_user(data['UserName'])
+    #for repo in user.get_repos():
+        #list.append(repo.name)
     NUser['Repos']=[]
     #NUser = json.dumps(NUser)
-    dbUsers.insert_one(NUser)
-    print(NUser)
+    a=dbUsers.insert_one(NUser)
+    NUser['_id']=a.inserted_id
     return NUser   
 def getComms(repo):
     #repo = g.get_repo(LINK)
@@ -118,8 +119,9 @@ def getPR(repo):
 def NewRepoByURL(rref,user):
     g = Github(user['Token'])
     repo = g.get_repo(rref)
+    if len(list(dbRepos.find({'Name':repo.name})))!=0:
+        dbUsers.update_one({"_id":user["_id"]},{'$addToSet':{'Repos':rt['Name']}})
     rt={}
-    #rt['Id']=uuid.uuid1()
     rt['Name']=repo.name
     rt['Issues']=getIssues(repo)
     rt['Commits']=getComms(repo)
@@ -128,9 +130,9 @@ def NewRepoByURL(rref,user):
     #rt = json.dumps(rt)
     dbRepos.insert_one(rt)
     user['Repos'].append(repo.name)
-    dbUsers.update_one({"UserName":user["UserName"]},{'$push':{'Repos':rt['Name']}})
+    dbUsers.update_one({"UserName":user["UserName"]},{'$addToSet':{'Repos':rt['Name']}}) # $addToSet
     #pprint.pprint(user)
-    return rt
+    return
 def NewRepo(data):
     repo={}
     repo['Id']=data['Id']
@@ -140,6 +142,11 @@ def NewRepo(data):
     repo['Pull_Requests']=data['Pull_Requests']
     #dbRepos.insert_one(repo)
     return
+def DeleteRepo(name,user):
+     dbUsers.update_one({'Repos':name, 'UserName':user['UserName']},{'$pull':{'Repos':name}})
+     if len(list(dbUsers.find({'Repos':name})))==0:
+         dbRepos.delete_one({'Name':name})
+     return   
 def GetReposOfUser(userN):
     cursor =dbUsers.find_one({'UserName': userN})
     print(cursor['Repos'])
@@ -150,18 +157,38 @@ def GetReposOfUser(userN):
 def GetUser(userN):
     cursor =dbUsers.find_one({'UserName': userN})
     return cursor
+def LogUser(data):
+    cursor =dbUsers.find_one({'UserName': data['login']})
+    if "Password" not in data or not data['Password']:
+        return "No Password"
+    if cursor['Password']!= data['Password']:
+        return "Wrong Password"
+    else:
+        return "OK"
 dat={
-    'UserName':"PsyholiricPavel",
+    'UserName':"zmm",
      'Password':"123",
      'Token':TOKEN,
      }
+dat2={
+    'login':"PsyholiricPavel",
+     'Password':"124",
+     }
+dat3={
+    'login':"PsyholiricPavel",
+     'Password':"123",
+     }
+dat4={
+    'login':"PsyholiricPavel"
+     }
 #user=NewUser(dat)
-user=GetUser('PsyholiricPavel')
+#user=GetUser('PsyholiricPavel')
 #NewRepoByURL("PsyholiricPavel/AiSD",user)
 #NewRepoByURL("PsyholiricPavel/Ford_Uorshell",user)
 #NewRepoByURL("PsyholiricPavel/MathPackages",user)
 #NewRepoByURL("PsyholiricPavel/nosql2h22-github",user)
 #NewRepoByURL("PsyholiricPavel/Practice-",user)
 #print("==============================\n",GetUser('PsyholiricPavel'),"\n==============================\n")
-pprint.pprint(GetReposOfUser('PsyholiricPavel'))
-
+#pprint.pprint(GetReposOfUser('PsyholiricPavel'))
+#DeleteRepo('MathPackages',user)
+print('aaaa')
