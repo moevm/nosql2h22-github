@@ -6,7 +6,7 @@ from pymongo import MongoClient
 
 LINK= "PsyholiricPavel/MathPackages"
 #LINK= "moevm/mse_automatic_export_of_schedules_and_statistics"
-TOKEN="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"
+TOKEN="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"
 
 client = MongoClient('localhost', 27017)
 
@@ -24,8 +24,8 @@ def NewUser(data):
     NUser['Password']=data['Password']
     NUser['Token']=data['Token']
     list=[]
-    g = Github(NUser['Token'])
-    user = g.get_user(data['UserName'])
+    #g = Github(NUser['Token'])
+    #user = g.get_user(data['UserName'])
     #for repo in user.get_repos():
         #list.append(repo.name)
     NUser['Repos']=[]
@@ -166,7 +166,7 @@ def LogUser(data):
     else:
         return "OK"
 dat={
-    'UserName':"PsyholiricPavel",
+    'UserName':"zmm",
      'Password':"123",
      'Token':TOKEN,
      }
@@ -182,13 +182,13 @@ dat4={
     'login':"PsyholiricPavel"
      }
 #user=NewUser(dat)
-user=GetUser('PsyholiricPavel')
+#user=GetUser('PsyholiricPavel')
 #NewRepoByURL("PsyholiricPavel/AiSD",user)
 #NewRepoByURL("PsyholiricPavel/Ford_Uorshell",user)
 #NewRepoByURL("PsyholiricPavel/MathPackages",user)
 #NewRepoByURL("PsyholiricPavel/nosql2h22-github",user)
 #NewRepoByURL("PsyholiricPavel/Practice-",user)
-print("==============================\n",GetUser('PsyholiricPavel'),"\n==============================\n")
+#print("==============================\n",GetUser('PsyholiricPavel'),"\n==============================\n")
 #pprint.pprint(GetReposOfUser('PsyholiricPavel'))
-DeleteRepo('MathPackages',user)
-print()
+#DeleteRepo('MathPackages',user)
+print('aaaa')
