@@ -22,9 +22,8 @@ def authorization():
         f_repos = {}
         if (request.form.get('users-alert')== 'True'):
             f_users = request.files['upload-user']
-            if f_users != '':
-                if allowed_file(f_users.filename):
-                    print("json!")
+            if allowed_file(f_users.filename):
+                print("json!")
         if (request.form.get('repo-alert')== 'True'):
             f_repos = request.files['upload-repos']
             if allowed_file(f_repos.filename):
