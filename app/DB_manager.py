@@ -174,4 +174,4 @@ def OutTable(name,want):
     cursor =dbRepos.find_one({'Name': name})
     return cursor[want]
 
-# Проверка токена!
+#валидацию Гита! импорт на файл !Экспорт файл
