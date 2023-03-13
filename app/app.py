@@ -1,5 +1,5 @@
 from flask import Flask, render_template, url_for, request, redirect
-import random
+#from Db_manager import *
 LINKS = [
     {'name': 'github', 'url': 'https://github.com/'}
 ]
@@ -13,13 +13,41 @@ def home():
 
 @app.route('/authorization', methods=['POST', 'GET'])
 def authorization():
-    RegUsername = request.form.get('RegUsername')
-    RegPassword = request.form.get('RegPassword')
-    RegToken = request.form.get('Token')
-    LoginUsername = request.form.get('LoginUsername')
-    LoginPassword = request.form.get('LoginPassword')
-    #a = NewUser[{'UserName': RegUsername}, {'Password': RegPassword}, {'Token': RegToken}]
-    return render_template('authorization.html')
+    valid_reg= True
+    valid_login = True
+    if request.method == "POST":
+        RegUsername = request.form.get('RegUsername')
+        RegPassword = request.form.get('RegPassword')
+        RegToken = request.form.get('Token')
+        RegUser = [{'UserName': RegUsername},
+                   {'Password': RegPassword},
+                   {'Token': RegToken}]
+        if((RegUsername == '') or
+            (RegPassword == '') or
+            (RegToken == '')):
+            valid_reg = False
+        else:
+            if ((RegUsername != None) or
+            (RegPassword != None) or
+            (RegToken != None)):
+                print("Reg")
+        LoginUsername = request.form.get('LoginUsername')
+        LoginPassword = request.form.get('LoginPassword')
+        LoginUser = [{'UserName': LoginUsername},
+                     {'Password': LoginPassword}]
+        if ((LoginUsername == '') or (LoginPassword == '')):
+            valid_login = False
+        else:
+            if ((LoginUsername != None) or (LoginPassword != None)):
+                print("Logined")
+
+        print(valid_login, valid_reg)
+        if (valid_reg):
+            print("AAAAAAAAAAAAAAAAAAAAAAAAAA")
+        if (valid_login):
+            print("BBBBBBBBBBBBBBBBBBBBBBBBBB")
+    #a = NewUser([{'UserName': RegUsername}, {'Password': RegPassword}, {'Token': RegToken}]
+    return render_template('authorization.html', valid_reg=valid_reg, valid_login=valid_login)
 
 @app.route('/menu', methods=['POST', 'GET'])
 def statistic():
