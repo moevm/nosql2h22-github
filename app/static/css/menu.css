@@ -184,7 +184,7 @@ ul div:hover {
   display: none;
   justify-content: center;   
   color: #fff;
-  margin-top: 64px;
+
 }
 
 .add-form {
@@ -234,11 +234,11 @@ ul div:hover {
   display: none;
 }
 
-
 .dropdown {
   position: relative;
   display: inline-block;
   margin-left: 9px;
+  margin-top: 64px;
 }
 
 .dropbtn {
@@ -271,13 +271,27 @@ ul div:hover {
 
 .dropdown:hover .dropbtn {background-color: #2d2e2d;}
 
+table, td,th {
+  border-width: 2px;
+  border-style: groove;
+  border-color: white;
+  margin: auto;
+}
+
 body {
   background-color: #1a1a1a;
   font-family: "Roboto", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   left: 0;
-  margin: 0;
   overflow: hidden;
-  position: relative;      
+  position: relative;
+  
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  overflow-y: scroll;
+  overflow-x: scroll;
+}
+body::-webkit-scrollbar {
+  display: none;
 }

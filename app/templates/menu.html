@@ -47,25 +47,63 @@ GitHub logger
     </div>
     <div class="statistics">
       <div class="issues-{{link}}">
-        <div>Issues of {{link}}</div>
+        {% for issue in issues[link] %}
         <table>
-          <caption>Comments</caption>
-          <tr>
-            <th>Author email</th>
-            <th>Author login</th>
-            <th>Author_email</th>
-            <th>Body</th>
-            <th>Date</th>
-          </tr>
-          {% for issue in issues['{{link}}'] %}
-          <tr><td>{{issue['']}}</td><td></td><td></td><td></td><td></td></tr>
+          <capation style="font-size: 24px;">Issue {{issue['Title']}}</capation>
+          <tr><th>Title</th><th>Task</th><th>State</th><th>Number</th><th>Id</th><th>Creator name</th><th>Creator login</th><th>Creator email</th><th>Creation date</th></tr>
+          <tr><td>{{issue['Title']}}</td><td>{{issue['Task']}}</td><td>{{issue['State']}}</td><td>{{issue['Number']}}</td><td>{{issue['Id']}}</td><td>{{issue['Creator_name']}}</td><td>{{issue['Creator_login']}}</td><td>{{issue['Creator_email']}}</td><td>{{issue['Creation_date']}}</td></tr>
+        </table> 
+          {% if issue['Comments'] != [] %}
+          <table>
+            <caption>Comments of {{issue['Title']}}</caption>
+            <tr><th>Author email</th><th>Author login</th><th>Author_email</th><th>Body</th><th>Date</th></tr>
+            {% for comments in issue['Comments'] %}
+          <tr><td>{{comments['Comment_author_email']}}</td><td>{{comments['Comment_author_login']}}</td><td>{{comments['Comment_author_name']}}</td><td>{{comments['Comment_body']}}</td><td>{{comments['Comment_date']}}</td></tr>
           {% endfor %}  
-
         </table>
+        {% endif %}
+        <br>
+        {% endfor %}  
       </div>
-      <div class="pull-requests-{{link}}">Pull requestsString({{link}})</div>
+      <div class="pull-requests-{{link}}">
+
+        {% for pr in prs[link] %}
+        <table>
+          <capation style="font-size: 24px;">Pull Request {{pr['Title']}}</capation>
+          <tr><th>Title</th><th>State</th><th>Creation date</th><th>Count of changed files</th><th>Creator name</th><th>Creator login</th><th>Creator email</th><th>Merger login</th><th>Merger email</th><th>Id</th><th>Commit info</th></tr>
+          <tr><td>{{pr['Title']}}</td><td>{{pr['State']}}</td><td>{{pr['Creation_date']}}</td><td>{{pr['Changed_files']}}</td><td>{{pr['Creator_name']}}</td><td>{{pr['Creator_login']}}</td><td>{{pr['Creator_email']}}</td><td>{{pr['Merger_login']}}</td><td>{{pr['Merger_email']}}</td><td>{{pr['Id']}}</td><td>{{pr['Commit_info']}}</td></tr>
+        </table> 
+          {% if pr['Comments'] != [] %}
+          <table>
+            <caption>Comments of {{pr['Title']}}</caption>
+            <tr><th>Author email</th><th>Author login</th><th>Author_email</th><th>Body</th><th>Date</th></tr>
+            {% for comments in pr['Comments'] %}
+          <tr><td>{{comments['Comment_author_email']}}</td><td>{{comments['Comment_author_login']}}</td><td>{{comments['Comment_author_name']}}</td><td>{{comments['Comment_body']}}</td><td>{{comments['Comment_date']}}</td></tr>
+          {% endfor %}  
+        </table>
+        {% endif %}
+        <br>
+        {% endfor %}  
+
+      </div>
       <div class="commits-{{link}}">
-        <div>Commits of {{link}}</div>
+        
+        <table>
+          <tr><th>Id</th><th>Author name</th><th>Author login</th><th>Author email</th><th>Data and Time</th><th>Changed files</th></tr>
+          {% for commit in commits[link] %}
+          <tr><td>{{commit['Id']}}</td><td>{{commit['Author_name']}}</td><td>{{commit['Author_login']}}</td><td>{{commit['Author_email']}}</td><td>{{commit['Data_and_time']}}</td><td>{{len(commits['Changed files'])}}</td></td></tr>
+          {% endfor %}  
+        </table>
+        <br>
+        {% for commit in commits[link] %}
+        <table style="margin-left: 300px;">
+          <tr><th>Changed files</th></tr>
+        {% for file in commit['Changed files'] %}
+          <tr><td>{{file}}</td></tr>
+          {% endfor %}
+        </table>
+        <br>
+        {% endfor %}
         
 
       </div>
