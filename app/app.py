@@ -14,6 +14,15 @@ def authorization():
     valid_reg= True
     valid_login = True
     if request.method == "POST":
+        Download = request.form.get('download')
+        if Download == 'True':
+            #скачать
+            print('download')
+        Upload = request.form.get('upload')
+        if Upload == 'True':
+            #загрузить
+            print('upload')    
+
         RegUsername = request.form.get('RegUsername')
         RegPassword = request.form.get('RegPassword')
         RegToken = request.form.get('Token')
