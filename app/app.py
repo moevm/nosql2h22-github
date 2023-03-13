@@ -28,6 +28,7 @@ def authorization():
             if ((RegUsername != None) or
             (RegPassword != None) or
             (RegToken != None)):
+                # Пользователь ввел какие-то данные для рега
                 print("Reg")
         LoginUsername = request.form.get('LoginUsername')
         LoginPassword = request.form.get('LoginPassword')
@@ -37,7 +38,9 @@ def authorization():
             valid_login = False
         else:
             if ((LoginUsername != None) or (LoginPassword != None)):
+                # Пользователь идет на проверку логина и парола
                 print("Logined")
+                return redirect('menu')
 
     return render_template('authorization.html', valid_reg=valid_reg, valid_login=valid_login)
 
@@ -52,10 +55,12 @@ def menu():
                 return redirect('authorization')
         AddRepoName = request.form.get('RepoName')
         if AddRepoName != None:
+            #добавление репо
             print(AddRepoName)
             links.append({'name': AddRepoName})
         DelRepo = request.form.get('del-this-repo')
         if DelRepo != None:
+            #удаление репо
             print(DelRepo)
     stat = {'links': links,
             'user_name': 'Username'}
