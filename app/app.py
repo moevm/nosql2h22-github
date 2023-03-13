@@ -44,11 +44,19 @@ def authorization():
 @app.route('/menu', methods=['POST', 'GET'])
 def menu():
     if request.method == "POST":
+        LogOut = request.form.get('LogOut')
+        if LogOut != None:
+            if LogOut == "1":
+                # обнулнение User 
+                print("a")
+                return redirect('authorization')
         AddRepoName = request.form.get('RepoName')
-        #links.append({'name': AddRepoName})
-        print(AddRepoName)
+        if AddRepoName != None:
+            print(AddRepoName)
+            links.append({'name': AddRepoName})
         DelRepo = request.form.get('del-this-repo')
-        print(DelRepo)
+        if DelRepo != None:
+            print(DelRepo)
     stat = {'links': links,
             'user_name': 'Username'}
     
