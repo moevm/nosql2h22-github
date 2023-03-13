@@ -60,6 +60,7 @@ def getComms(repo):
         files=[]
         com={'Id':"",'Author_Name':"",'Author_login':"",'Author_email':"",'Data_and_time':"",'Data_and_time':"",}
         com['Id']=commit.sha
+        com['Message']=commit.commit.message.partition('\n')[0] if commit.commit.message else ""
         com['Author_Name']=commit.author.name if commit.author else ""
         com['Author_login']=commit.author.login if commit.author else ""
         com['Author_email']=commit.commit.author.email if commit.commit.author else ""

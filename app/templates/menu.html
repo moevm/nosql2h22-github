@@ -89,15 +89,15 @@ GitHub logger
       <div class="commits-{{link}}">
         
         <table>
-          <tr><th>Id</th><th>Author name</th><th>Author login</th><th>Author email</th><th>Data and Time</th><th>Changed files</th></tr>
+          <tr><th>Name</th><th>Id</th><th>Author name</th><th>Author login</th><th>Author email</th><th>Data and Time</th></tr>
           {% for commit in commits[link] %}
-          <tr><td>{{commit['Id']}}</td><td>{{commit['Author_name']}}</td><td>{{commit['Author_login']}}</td><td>{{commit['Author_email']}}</td><td>{{commit['Data_and_time']}}</td><td>{{commits['Changed files']}}</td></td></tr>
+          <tr><td>{{commit['Message']}}</td><td>{{commit['Id']}}</td><td>{{commit['Author_name']}}</td><td>{{commit['Author_login']}}</td><td>{{commit['Author_email']}}</td><td>{{commit['Data_and_time']}}</td></tr>
           {% endfor %}  
         </table>
         <br>
         {% for commit in commits[link] %}
         <table style="margin-left: 300px;">
-          <tr><th>Changed files</th></tr>
+          <tr><th>Changed files of {{commit['Message']}}</th></tr>
         {% for file in commit['Changed files'] %}
           <tr><td>{{file}}</td></tr>
           {% endfor %}

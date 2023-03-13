@@ -1,8 +1,6 @@
 from flask import Flask, render_template, url_for, request, redirect, send_file
 from DB_manager import *
 import pprint
-links = [{'name': 'link_1'},
-             {'name': 'link_2'}]
 
 user = {}
 
@@ -49,17 +47,14 @@ def authorization():
                 (RegPassword == '') or
                 (RegToken == '')):
                 valid_reg = False
-                print('3')
             else:
                 if ((RegUsername != None) or
                     (RegPassword != None) or
                     (RegToken != None)):
                     if (isRegistredAlready(RegUser['UserName'])):
                         valid_reg = False
-                        print('2')
                     elif (TokenValidator(RegUser) == [False,"Not your token"]):
                         valid_reg = False
-                        print('1')
                     else:
                         NewUser(RegUser)
             LoginUsername = request.form.get('LoginUsername')
@@ -75,7 +70,6 @@ def authorization():
                         valid_login = False
                     else:
                         user = tmp_user
-                        print(user)   
                         return redirect('menu')
 
         return render_template('authorization.html', valid_reg=valid_reg, valid_login=valid_login)
@@ -104,13 +98,9 @@ def menu():
                 flag,msg=URLValidator(AddRepoName,user)
                 if flag:
                     NewRepoByURL(AddRepoName,user)
-                    print(AddRepoName)
-                    links.append({'name': AddRepoName})
             DelRepo = request.form.get('del-this-repo')
             if DelRepo != None:
-                DeleteRepo(DelRepo,user)
-                print(DelRepo)
-   
+                DeleteRepo(DelRepo,user)   
         repos = GetReposOfUserDB(user['UserName'])
         name = user['UserName']
         issues = {}
@@ -120,14 +110,7 @@ def menu():
             issues[i] = OutTable(i,"Issues")
             pr[i] = OutTable(i,"Pull_Requests")
             commits[i] = OutTable(i,"Commits")
-        pprint.pprint(issues)
         return render_template('menu.html',repos=repos, name=name, issues=issues, prs=pr, commits=commits)
 
 if __name__ == "__main__":
     app.run(debug=True)
-
-
-    # Таблицы
-    # Скачивание
-    # Досвязать регу
-    #
