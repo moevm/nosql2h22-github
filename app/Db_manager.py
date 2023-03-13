@@ -2,39 +2,38 @@ from github import Github, Repository, GithubException
 import pprint
 import datetime
 import json
-from pymongo import MongoClient
-
-LINK= "PsyholiricPavel/MathPackages"
-#LINK= "moevm/mse_automatic_export_of_schedules_and_statistics"
-TOKEN="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"
+from pymongo import MongoClient, InsertOne
+import bson.json_util as json_util
 
 client = MongoClient('localhost', 27017)
 
 db = client["Data"] 
 dbUsers = db["Users"]
 dbRepos = db["Repos"]
-#print("Available databases:", client.list_database_names())
-#g = Github(TOKEN)
-#repo = g.get_repo(LINK)
+
 def isRegistredAlready(userN):
-    return GetUser(userN)
+    return GetUser(userN)!=None
+def Authorization(data):
+    cursor =dbUsers.find_one({'UserName': data['login']})
+    if not isRegistredAlready(data['login']):
+        return [None,"Not registred"]
+    if "Password" not in data or not data['Password']:
+        return [None,"No Password"]
+    if cursor['Password']== data['Password']:
+        return [cursor,"OK"]
+    else:
+        return [None,"Wrong Password"]
 def NewUser(data):
     NUser={}
     NUser['UserName']=data['UserName']
     NUser['Password']=data['Password']
     NUser['Token']=data['Token']
     list=[]
-    #g = Github(NUser['Token'])
-    #user = g.get_user(data['UserName'])
-    #for repo in user.get_repos():
-        #list.append(repo.name)
     NUser['Repos']=[]
-    #NUser = json.dumps(NUser)
     a=dbUsers.insert_one(NUser)
     NUser['_id']=a.inserted_id
     return NUser   
 def getComms(repo):
-    #repo = g.get_repo(LINK)
     comms=[]
     commits=repo.get_commits()
     for commit in commits:
@@ -49,10 +48,8 @@ def getComms(repo):
             files.append(file.filename)
         com['Changed files']=files
         comms.append(com)
-        #dbCommits.insert_one(com)
     return comms
 def getIssues(repo):
-    #repo = g.get_repo(LINK)
     Iss=[]
     issues = repo.get_issues(state='all')
     
@@ -60,7 +57,6 @@ def getIssues(repo):
         comments=[]
         for comment in issue.get_comments():
             comment_i={}
-            #print(comment.body)
             comment_i['Comment_date']=comment.created_at.isoformat() 
             comment_i['Comment_body']=comment.body
             comment_i['Comment_author_name']=comment.user.name 
@@ -80,14 +76,10 @@ def getIssues(repo):
         #el['Changed_files']=issue как в ишью могут меняться файлы???
         el['Comments']=comments
         Iss.append(el)
-        #dbIssues.insert_one(el)
     return Iss
 def getPR(repo):
-    #repo = g.get_repo(LINK)
     PRs=[]
     pulls=repo.get_pulls(state='all')
-    
-    #print()
     for pull in pulls:
         comms=[]
         for comm in pull.get_commits():
@@ -119,76 +111,56 @@ def getPR(repo):
 def NewRepoByURL(rref,user):
     g = Github(user['Token'])
     repo = g.get_repo(rref)
-    if len(list(dbRepos.find({'Name':repo.name})))!=0:
-        dbUsers.update_one({"_id":user["_id"]},{'$addToSet':{'Repos':rt['Name']}})
     rt={}
     rt['Name']=repo.name
+    if len(list(dbRepos.find({'Name':repo.name})))!=0:
+        dbUsers.update_one({"_id":user["_id"]},{'$addToSet':{'Repos':rt['Name']}})
     rt['Issues']=getIssues(repo)
     rt['Commits']=getComms(repo)
     rt['Pull_Requests']=getPR(repo)
-    #pprint.pprint(rt)
-    #rt = json.dumps(rt)
     dbRepos.insert_one(rt)
     user['Repos'].append(repo.name)
     dbUsers.update_one({"UserName":user["UserName"]},{'$addToSet':{'Repos':rt['Name']}}) # $addToSet
-    #pprint.pprint(user)
-    return
-def NewRepo(data):
-    repo={}
-    repo['Id']=data['Id']
-    repo['Name']=data['Name']
-    repo['Issues']=data['Issues']
-    repo['Commits']=data['Commits']
-    repo['Pull_Requests']=data['Pull_Requests']
-    #dbRepos.insert_one(repo)
     return
 def DeleteRepo(name,user):
      dbUsers.update_one({'Repos':name, 'UserName':user['UserName']},{'$pull':{'Repos':name}})
      if len(list(dbUsers.find({'Repos':name})))==0:
          dbRepos.delete_one({'Name':name})
      return   
-def GetReposOfUser(userN):
+def GetReposOfUserGH(userN):
     cursor =dbUsers.find_one({'UserName': userN})
     print(cursor['Repos'])
     repos=[]
     for repo in cursor['Repos']:
         repos.append(dbRepos.find_one({'Name':repo}))
     return repos
+def GetReposOfUserDB(userN):
+    cursor =dbUsers.find_one({'UserName': userN})
+    return cursor['Repos']
 def GetUser(userN):
     cursor =dbUsers.find_one({'UserName': userN})
     return cursor
-def LogUser(data):
-    cursor =dbUsers.find_one({'UserName': data['login']})
-    if "Password" not in data or not data['Password']:
-        return "No Password"
-    if cursor['Password']!= data['Password']:
-        return "Wrong Password"
+def ExportToJSON(filename,whichBase='r'):
+    base =dbUsers if whichBase=='u' else dbRepos
+    cursor=base.find()
+    with open('jsons/'+filename+'.json', 'w', encoding="utf-8") as f:
+        f.write(json_util.dumps(cursor,indent=4))
+    return
+def ImportFromJSON(filename,whichBase='r'):
+    base =dbUsers if whichBase=='u' else dbRepos
+    requesting = []
+
+    with open('jsons/'+filename+'.json',) as f:
+        file_data = json.load(f)
+    for dt in file_data:
+        del dt['_id']
+    if isinstance(file_data, list):
+        base.insert_many(file_data) 
     else:
-        return "OK"
-dat={
-    'UserName':"zmm",
-     'Password':"123",
-     'Token':TOKEN,
-     }
-dat2={
-    'login':"PsyholiricPavel",
-     'Password':"124",
-     }
-dat3={
-    'login':"PsyholiricPavel",
-     'Password':"123",
-     }
-dat4={
-    'login':"PsyholiricPavel"
-     }
-#user=NewUser(dat)
-#user=GetUser('PsyholiricPavel')
-#NewRepoByURL("PsyholiricPavel/AiSD",user)
-#NewRepoByURL("PsyholiricPavel/Ford_Uorshell",user)
-#NewRepoByURL("PsyholiricPavel/MathPackages",user)
-#NewRepoByURL("PsyholiricPavel/nosql2h22-github",user)
-#NewRepoByURL("PsyholiricPavel/Practice-",user)
-#print("==============================\n",GetUser('PsyholiricPavel'),"\n==============================\n")
-#pprint.pprint(GetReposOfUser('PsyholiricPavel'))
-#DeleteRepo('MathPackages',user)
-print('aaaa')
+        base.insert_one(file_data)
+    return
+def OutTable(name,want):
+    cursor =dbRepos.find_one({'Name': name})
+    return cursor[want]
+
+# Проверка токена!
