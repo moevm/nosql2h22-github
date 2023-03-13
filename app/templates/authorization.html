@@ -24,5 +24,18 @@ GitHub logger
       </form>
     </div>
   </div>
+<script>
+  var main_2 = function(){
+  {% if not valid_reg %}
+  $('.register-form input').attr('style', 'border-color: red');
+  $('.login-form').attr('style', 'display: none')
+  $('.register-form').attr('style', 'display: block')
 
+  {% endif %}
+  {% if not valid_login %}
+    $('.login-form input').attr('style', 'border-color: red');
+
+  {% endif %}
+  };
+</script>
 {% endblock %}
