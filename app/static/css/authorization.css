@@ -8,8 +8,39 @@
   margin-bottom: 8px;
 }
 
-.upld-json {
-  margin-left: 23px;
+.dwnld-json {
+  margin-left: 179px;
+}
+
+.input-file {
+	position: relative;
+	display: inline-block;
+}
+.input-file span {
+  font-family: "Roboto", sans-serif;
+  text-transform: uppercase;
+  outline: 0;
+  background: #2d2e2d;
+
+  border: 0;
+  padding: 15px;
+  color: #FFFFFF;
+  font-size: 14px;
+  -webkit-transition: all 0.3 ease;
+  transition: all 0.3 ease;
+  cursor: pointer;
+}
+.input-file input[type=file] {
+	position: absolute;
+	z-index: -1;
+	opacity: 0;
+	display: block;
+	width: 0;
+	height: 0;
+}
+
+.input-file:hover span,.input-file:active span,.input-file:focus span {
+  background: #272b27;
 }
 
 .login-page {

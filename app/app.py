@@ -5,6 +5,10 @@ links = [{'name': 'link_1'},
 app = Flask(__name__)
 
 
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in 'json'
+
 @app.route('/', methods=['GET'])
 def home():
     return redirect('authorization')
@@ -14,14 +18,21 @@ def authorization():
     valid_reg= True
     valid_login = True
     if request.method == "POST":
+        f_users = {}
+        f_repos = {}
+        if (request.form.get('users-alert')== 'True'):
+            f_users = request.files['upload-user']
+            if f_users != '':
+                if allowed_file(f_users.filename):
+                    print("json!")
+        if (request.form.get('repo-alert')== 'True'):
+            f_repos = request.files['upload-repos']
+            if allowed_file(f_repos.filename):
+                print("json!")
         Download = request.form.get('download')
         if Download == 'True':
             #скачать
-            print('download')
-        Upload = request.form.get('upload')
-        if Upload == 'True':
-            #загрузить
-            print('upload')    
+            print('download')    
 
         RegUsername = request.form.get('RegUsername')
         RegPassword = request.form.get('RegPassword')
