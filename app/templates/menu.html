@@ -20,7 +20,10 @@ GitHub logger
     {% for link in stats['links'] %}
     <div class="repo-list">
         <a id="repo-link-{{link.name}}" class="repo-link">{{link.name}}</a>
-        <a class="del-repo"><img class="del-button" src="../static/images/delete-button.png"></a>
+        <form method="POST">
+        <input type="hidden" name="del-this-repo" value="{{link.name}}">
+        <input class="del-repo" type="submit" value="X" name="test"/>
+        </form>
       </div>
       {% endfor %}
       <button class="add-repo" href="#add-repo">+</button>

@@ -1,8 +1,7 @@
 from flask import Flask, render_template, url_for, request, redirect
 #from Db_manager import *
-LINKS = [
-    {'name': 'github', 'url': 'https://github.com/'}
-]
+links = [{'name': 'link_1'},
+             {'name': 'link_2'}]
 app = Flask(__name__)
 
 
@@ -44,13 +43,12 @@ def authorization():
 
 @app.route('/menu', methods=['POST', 'GET'])
 def menu():
-    links = [{'name': 'link_1'},
-             {'name': 'link_2'}, ]
     if request.method == "POST":
         AddRepoName = request.form.get('RepoName')
+        #links.append({'name': AddRepoName})
         print(AddRepoName)
-        
-
+        DelRepo = request.form.get('del-this-repo')
+        print(DelRepo)
     stat = {'links': links,
             'user_name': 'Username'}
     
