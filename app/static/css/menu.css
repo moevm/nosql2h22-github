@@ -1,21 +1,5 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto:300);
 
-#dialog {
-  background-color: #4CAF50;
-} 
-
-#dialog input {
-  width: 150px;
-  margin: 5px;
-  text-align: left
-}
-
-#dialog label {
-  display:inline-block;
-  width: 120px;
-}
-td, th {padding: 5px; width: 100px}
-
 .topnav {
   background-color: white;
   overflow: hidden;
@@ -208,6 +192,8 @@ td, th {padding: 5px; width: 100px}
   text-transform: uppercase;
   color: #FFFFFF;
   font-size: 24px;
+  font-weight: bolder;
+  margin-bottom: 15px;
 }
 .add-form input {
   font-family: "Roboto";
