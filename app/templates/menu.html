@@ -91,7 +91,7 @@ GitHub logger
         <table>
           <tr><th>Id</th><th>Author name</th><th>Author login</th><th>Author email</th><th>Data and Time</th><th>Changed files</th></tr>
           {% for commit in commits[link] %}
-          <tr><td>{{commit['Id']}}</td><td>{{commit['Author_name']}}</td><td>{{commit['Author_login']}}</td><td>{{commit['Author_email']}}</td><td>{{commit['Data_and_time']}}</td><td>{{len(commits['Changed files'])}}</td></td></tr>
+          <tr><td>{{commit['Id']}}</td><td>{{commit['Author_name']}}</td><td>{{commit['Author_login']}}</td><td>{{commit['Author_email']}}</td><td>{{commit['Data_and_time']}}</td><td>{{commits['Changed files']}}</td></td></tr>
           {% endfor %}  
         </table>
         <br>
