@@ -1,5 +1,21 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto:300);
 
+#dialog {
+  background-color: #4CAF50;
+} 
+
+#dialog input {
+  width: 150px;
+  margin: 5px;
+  text-align: left
+}
+
+#dialog label {
+  display:inline-block;
+  width: 120px;
+}
+td, th {padding: 5px; width: 100px}
+
 .topnav {
   background-color: white;
   overflow: hidden;
@@ -75,6 +91,8 @@
   font-weight: bolder;
 }
 /************/
+
+
 
 .menu {
   left: -285px;
@@ -172,17 +190,19 @@
 
 /**********************************/
 
-.info-field {
+#info-field {
+  display: none;
   justify-content: center;   
   color: #fff;
   margin-top: 64px;
 }
 
 .statistics div{
-  display: none;
   width: 100%;
   text-align: center;
+  display: none;
 }
+
 
 .dropdown {
   position: relative;
