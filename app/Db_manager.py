@@ -2,12 +2,11 @@ from github import Github, Repository, GithubException
 import pprint
 import datetime
 import json
-import pandas
 from pymongo import MongoClient, InsertOne
 
 LINK= "PsyholiricPavel/MathPackages"
 #LINK= "moevm/mse_automatic_export_of_schedules_and_statistics"
-TOKEN="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"
+TOKEN="ghp_4tqnkF9j RzI3KHiSQTTT2Ji6NGYlIH2pTZfZ"
 
 client = MongoClient('localhost', 27017)
 
@@ -18,7 +17,7 @@ dbRepos = db["Repos"]
 #g = Github(TOKEN)
 #repo = g.get_repo(LINK)
 def isRegistredAlready(userN):
-    return GetUser(userN)
+    return GetUser(userN)!=None
 def NewUser(data):
     NUser={}
     NUser['UserName']=data['UserName']
@@ -172,7 +171,7 @@ def ExportToJSON(filename,whichBase='r'):
             f.write(json.dumps(item, ensure_ascii=False) + "\n")
 
     return
-def importFromJSON(filename,whichBase='r'):
+def ImportFromJSON(filename,whichBase='r'):
     base =dbUsers if whichBase=='u' else dbRepos
     cursor=base.find()
     requesting = []
@@ -210,7 +209,7 @@ dat4={
 #print("==============================\n",GetUser('PsyholiricPavel'),"\n==============================\n")
 #pprint.pprint(GetReposOfUser('PsyholiricPavel'))
 #DeleteRepo('MathPackages',user)
-print('aaaa')
-importFromJSON("no",'u')
+#print('aaaa')
+#ImportFromJSON("no",'u')
 #ExportToJSON("no",'u')
-# Есть ли такое репо! Авторзиция логинпаролль - вернуть юзер! Дописать изРегистред на булл! ДЖОСОН!!!
+# Есть ли такое репо! Авторзиция логинпаролль - вернуть юзер! Дописать изРегистред на булл!
