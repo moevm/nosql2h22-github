@@ -1,14 +1,12 @@
 from flask import Flask, render_template, url_for, request, redirect
 #from Db_manager import *
-LINKS = [
-    {'name': 'github', 'url': 'https://github.com/'}
-]
+links = [{'name': 'link_1'},
+             {'name': 'link_2'}]
 app = Flask(__name__)
 
 
 @app.route('/', methods=['GET'])
 def home():
-
     return redirect('authorization')
 
 @app.route('/authorization', methods=['POST', 'GET'])
@@ -41,18 +39,16 @@ def authorization():
             if ((LoginUsername != None) or (LoginPassword != None)):
                 print("Logined")
 
-        print(valid_login, valid_reg)
-        if (valid_reg):
-            print("AAAAAAAAAAAAAAAAAAAAAAAAAA")
-        if (valid_login):
-            print("BBBBBBBBBBBBBBBBBBBBBBBBBB")
-    #a = NewUser([{'UserName': RegUsername}, {'Password': RegPassword}, {'Token': RegToken}]
     return render_template('authorization.html', valid_reg=valid_reg, valid_login=valid_login)
 
 @app.route('/menu', methods=['POST', 'GET'])
-def statistic():
-    links = [{'name': 'link_1'},
-             {'name': 'link_2'}, ]
+def menu():
+    if request.method == "POST":
+        AddRepoName = request.form.get('RepoName')
+        #links.append({'name': AddRepoName})
+        print(AddRepoName)
+        DelRepo = request.form.get('del-this-repo')
+        print(DelRepo)
     stat = {'links': links,
             'user_name': 'Username'}
     

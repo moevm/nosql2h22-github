@@ -1,21 +1,5 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto:300);
 
-#dialog {
-  background-color: #4CAF50;
-} 
-
-#dialog input {
-  width: 150px;
-  margin: 5px;
-  text-align: left
-}
-
-#dialog label {
-  display:inline-block;
-  width: 120px;
-}
-td, th {padding: 5px; width: 100px}
-
 .topnav {
   background-color: white;
   overflow: hidden;
@@ -137,7 +121,7 @@ td, th {padding: 5px; width: 100px}
   display: flexbox;
   width: 100%;
   padding: 11px 16px;
-  padding-right: 170px;
+  padding-right: 150px;
 }
 
 .repo-link:hover {
@@ -197,6 +181,47 @@ td, th {padding: 5px; width: 100px}
   margin-top: 64px;
 }
 
+.add-form {
+  margin-top: 192px;
+  display: none;
+  text-align: center;
+}
+
+.add-form div {
+  font-family: "Roboto";
+  text-transform: uppercase;
+  color: #FFFFFF;
+  font-size: 24px;
+  font-weight: bolder;
+  margin-bottom: 15px;
+}
+.add-form input {
+  font-family: "Roboto";
+  outline: 0;
+  background: #d8d8d8;
+  
+  margin: 0 0 15px;
+  padding: 15px;
+  box-sizing: border-box;
+  font-size: 24px;
+}
+
+#btn {
+  font-family: "Roboto";
+  text-transform: uppercase;
+  outline: 0;
+  background: #2d2e2d;
+  border: 0;
+  padding: 15px;
+  color: #FFFFFF;
+  font-size: 24px;
+  -webkit-transition: all 0.3 ease;
+  transition: all 0.3 ease;
+  cursor: pointer;
+}
+#btn:hover,.form #btn:active,.form #btn:focus {
+  background: #272b27;
+}
 .statistics div{
   width: 100%;
   text-align: center;
