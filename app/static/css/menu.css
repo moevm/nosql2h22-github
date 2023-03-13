@@ -14,9 +14,11 @@
   background-color: #2d2e2d;
   color: white;
   padding: 12px;
+  padding-bottom: -4px;
   text-decoration: none;
   font-size: 22px;
   cursor: pointer;
+  border: 0;
 }
 .user-name {
   float: right;
