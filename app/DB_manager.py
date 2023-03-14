@@ -1,8 +1,6 @@
-from github import Github, Repository, GithubException
-import pprint
-import datetime
+from github import Github, GithubException
 import json
-from pymongo import MongoClient, InsertOne
+from pymongo import MongoClient
 import bson.json_util as json_util
 
 client = MongoClient('localhost', 27017)

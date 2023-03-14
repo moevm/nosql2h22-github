@@ -1,6 +1,5 @@
-from flask import Flask, render_template, url_for, request, redirect, send_file
+from flask import Flask, render_template, request, redirect, send_file
 from DB_manager import *
-import pprint
 
 user = {}
 
