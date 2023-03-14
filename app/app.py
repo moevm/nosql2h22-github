@@ -101,7 +101,7 @@ def menu():
             DelRepo = request.form.get('del-this-repo')
             if DelRepo != None:
                 DeleteRepo(DelRepo,user)
-            if request.form.get('repo-find') != None or request.form.get('repo-find') != "":
+            if request.form.get('repo-find') != None and request.form.get('repo-find') != "":
                 search_repo = request.form.get('repo-find')    
         repos = GetReposOfUserDB(user['UserName'])
         name = user['UserName']
