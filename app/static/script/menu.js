@@ -1,19 +1,14 @@
 var main = function() {
-	
-	$('.del-repo').click(function() {
-        $('#dialog').dialog("open")
-    })
-
   $('.open-menu').click(
     function() {
       $('.menu').animate({left: '0px'}, 200);
-      $('body').animate({left: '285px'}, 200);
+      $('.dropdown').animate({left: '290px'}, 200)
     });
  
   $('.close-menu').click(
     function() {
       $('.menu').animate({left: '-285px'}, 200);
-      $('body').animate({left: '0px'}, 200);
+      $('.dropdown').animate({left: '5px'}, 200)
     });
 };
 

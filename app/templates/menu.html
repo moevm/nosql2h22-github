@@ -20,9 +20,13 @@ GitHub logger
 </div>
 <div class="menu">
   <div class="close-menu">CLOSE</div>
+  <form class="find-form" method="POST">
+    <input class="find-repo" type="text" name="repo-find" placeholder="Find repo">
+    <input class="btn-find" type="submit" name="find" value="FIND">
+  </form>
   <ul>
     {% for link in repos %}
-    <div class="repo-list">
+    <div class="repo-list" id="repo-list-{{link}}">
       <form method="POST">
       <input type="hidden" name="del-this-repo" value="{{link}}">
       <input class="del-repo" type="submit" value="X" name="test"/>
@@ -123,14 +127,23 @@ GitHub logger
 
 <script>
 var main_2 = function(){
+  {% for link in repos%}
+    {% if search_repo !="" %}
+      {%if link != search_repo %}
+        $("#repo-list-{{link}}").attr('style', 'display:none');
+      {% else %}
+        $("#repo-list-{{link}}").attr('style', 'display:block');
+      {% endif %}
+    {% endif %}
+  {% endfor %}
   {% for link in repos %}
     $("#repo-link-{{link}}").click(
       function(){
         {% for link_i in repos %}
-          $('.info-field-{{link_i.name}}').attr('style', 'display: none');
+          $('.info-field-{{link_i}}').attr('style', 'display: none');
         {% endfor %}
           $('.info-field-{{link}}').attr('style', 'display: block');
-          $('.add-form').attr('style', 'display: none')
+          $('.add-form').attr('style', 'display: none');
 
     });
     console.log("test");
@@ -160,7 +173,7 @@ var main_2 = function(){
         {% for link in repos %}
           $('.info-field-{{link}}').attr('style', 'display: none');
         {% endfor %}
-        $('.add-form').attr('style', 'display: block')
+        $('.add-form').attr('style', 'display: block');
       }
     );
 };

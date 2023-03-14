@@ -85,6 +85,7 @@ def menu():
     if user == {}:
         return redirect('authorization')
     else:
+        search_repo = ""
         if request.method == "POST":
             LogOut = request.form.get('LogOut')
             if LogOut != None:
@@ -99,7 +100,9 @@ def menu():
                     NewRepoByURL(AddRepoName,user)
             DelRepo = request.form.get('del-this-repo')
             if DelRepo != None:
-                DeleteRepo(DelRepo,user)   
+                DeleteRepo(DelRepo,user)
+            if request.form.get('repo-find') != None and request.form.get('repo-find') != "":
+                search_repo = request.form.get('repo-find')    
         repos = GetReposOfUserDB(user['UserName'])
         name = user['UserName']
         issues = {}
@@ -109,7 +112,7 @@ def menu():
             issues[i] = OutTable(i,"Issues")
             pr[i] = OutTable(i,"Pull_Requests")
             commits[i] = OutTable(i,"Commits")
-        return render_template('menu.html',repos=repos, name=name, issues=issues, prs=pr, commits=commits)
+        return render_template('menu.html', search_repo=search_repo, repos=repos, name=name, issues=issues, prs=pr, commits=commits)
 
 if __name__ == "__main__":
     app.run(debug=True, host="0.0.0.0")

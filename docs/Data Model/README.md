@@ -2,13 +2,12 @@
 # Схема БД и список сущностей
 База данных содержит информацию о репозиториях, коммитах, пуллреквестах и Issue. Ниже приведен список полей.
 ### User
-- UserName
+- Username
 - Password
 - Token
 - Repos
 
 ### Repo
-- Id
 - Name
 - Issues
 - Commits
@@ -21,23 +20,19 @@
 - Author_email
 - Data_and_time
 - Changed_files
+- Message
 
 ### Pull_Request
 - Id
 - Title
 - State
-- Commit_info
+- Commit_into
 - Creator_name
 - Creation_date
 - Creator_login
 - Creator_email
 - Changed_files
-- Comment_body
-- Comment_created_date
-- Comment_author_name
-- Comment_author_login
-- Comment_author_email
-- Merger_name
+- Comments
 - Merger_login
 - Merger_email
 
@@ -52,20 +47,23 @@
 - Creator_login
 - Creator_email
 - Changed_files
-- Comment_date
+- Comments
+
+### Comment
 - Comment_body
+- Comment_created_date
 - Comment_author_name
 - Comment_author_login
 - Comment_author_email
 
 # Нереляционная модель данных
 ## Графическое представление
-![ModelData](NoSQL.png)
+![ModelData](NoSQL_new.jpg)
 ## Оценка удельного объема информации, хранимой в модели
 Пусть в базе данных N1 пользователей N2 репозиториев N3 пулреквестов  N4 коммитов и N5 Issue .
 Максимальные размеры полей документов:
 ### User
-- UserName:128 bytes
+- UserName: 128 bytes
 - Password: 128 bytes
 - Token: 93 bytes
 - Repos: 760 bytes
@@ -76,73 +74,72 @@
 
 ### Repo
 - Name: 256 bytes
-- Id: 8 bytes
 - Issues: 760 bytes
-- Commits:760 bytes
-- Pull_Requests:760 bytes
+- Commits: 760 bytes
+- Pull_Requests: 760 bytes
 
 Чистый объём документа Repo:  2536 bytes 
 
-Фактической объём документа Repo: 2544 bytes 
+Фактической объём документа Repo: 2536 bytes 
 
 ### Commit
-
-- Id:8 bytes
-- Author_Name:128 bytes
-- Author_login:128 bytes
-- Author_email:128 bytes
-- Data_and_time:20 bytes
-- Changed_files:760bytes
+- Id: 8 bytes
+- Author_Name :128 bytes
+- Author_login: 128 bytes
+- Author_email: 128 bytes
+- Data_and_time: 20 bytes
+- Changed_files: 760 bytes
+- Message: 
 
 Чистый объём документа commit: 1164  bytes 
 
 Фактической объём документа commit: 1172 bytes 
 
 ### Pull_Request
-
-- Id:8 bytes
-- Title:256 bytes
+- Id: 8 bytes
+- Title: 256 bytes
 - State: 100 bytes
-- Commit_info: 100bytes
+- Commit_info: 100 bytes
 - Creator_name: 128 bytes
-- Creation_date:20 bytes
+- Creation_date: 20 bytes
 - Creator_login: 128 bytes
 - Creator_email: 128 bytes
-- Changed_files:760bytes
-- Comment_body:1000 bytes
-- Comment_created_date:20 bytes
-- Comment_author_name:128 bytes
-- Comment_author_login:128 bytes
-- Comment_author_email:128 bytes
-- Merger_name:128 bytes
+- Changed_files: 760 bytes
+- Comments: 1404 bytes
 - Merger_login:128 bytes
 - Merger_email:128 bytes
 
-Чистый объём документа Pull_Request: 3408  bytes 
+Чистый объём документа Pull_Request: 4684  bytes 
 
-Фактической объём документа Pull_Request: 3416 bytes 
+Фактической объём документа Pull_Request: 4692 bytes 
 
 ### Issue
-
-- Id:8 bytes
-- Number:8 bytes
-- Title:256 bytes
-- State:100 bytes
+- Id: 8 bytes
+- Number: 8 bytes
+- Title: 256 bytes
+- State: 100 bytes
 - Task: 1000 bytes
-- Creation_date:20 bytes
-- Creator_name:128 bytes
-- Creator_login:128 bytes
-- Creator_email:128 bytes
-- Changed_files:760 bytes
-- Comment_date:20 bytes
-- Comment_body:1000 bytes
-- Comment_author_name:128 bytes
-- Comment_author_login:128 bytes
-- Comment_author_email:128 bytes
+- Creation_date: 20 bytes
+- Creator_name: 128 bytes
+- Creator_login: 128 bytes
+- Creator_email: 128 bytes
+- Changed_files: 760 bytes
+- Comments: 1404 bytes
 
 Чистый объём документа Issue: 3932  bytes 
 
-Фактической объём документа Issue: 3940 bytes 
+Фактической объём документа Issue: 3940 bytes
+
+### Comment
+- Comment_body: 1000 bytes
+- Comment_created_date: 20 bytes
+- Comment_author_name: 128 bytes
+- Comment_author_login: 128 bytes
+- Comment_author_email: 128 bytes
+
+Чистый объём документа Comment: 1404  bytes 
+
+Фактической объём документа Comment: 1404 bytes 
 
 ## Избыточность модели
 Пусть в базе данных N<sub>1</sub>=5 пользователей N<sub>2</sub>=10 репозиториев N<sub>3</sub>=100 пулреквестов  N<sub>4</sub>=120 коммитов и N<sub>5</sub>=10 Issue
