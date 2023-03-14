@@ -3,7 +3,7 @@ import json
 from pymongo import MongoClient
 import bson.json_util as json_util
 
-client = MongoClient('localhost', 27017)
+client = MongoClient("mongodb://mongo:27017")
 
 db = client["Data"] 
 dbUsers = db["Users"]

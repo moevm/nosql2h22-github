@@ -16,19 +16,10 @@ services:
 
   mongo:
     image: mongo:6.0.2
+    container_name: NoSQL_mongo
     networks:
       - backend
 
-  mongo_seed:
-    image: mongo:6.0.2
-    links:
-      - mongo
-    networks:
-      - backend
-    volumes:
-      - ./mongo-seed:/mongo-seed/
-    command:
-      /mongo-seed/import.sh
 
 networks:
   backend:
