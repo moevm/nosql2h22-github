@@ -140,10 +140,10 @@ var main_2 = function(){
     $("#repo-link-{{link}}").click(
       function(){
         {% for link_i in repos %}
-          $('.info-field-{{link_i.name}}').attr('style', 'display: none');
+          $('.info-field-{{link_i}}').attr('style', 'display: none');
         {% endfor %}
           $('.info-field-{{link}}').attr('style', 'display: block');
-          $('.add-form').attr('style', 'display: none')
+          $('.add-form').attr('style', 'display: none');
 
     });
     console.log("test");
@@ -173,7 +173,7 @@ var main_2 = function(){
         {% for link in repos %}
           $('.info-field-{{link}}').attr('style', 'display: none');
         {% endfor %}
-        $('.add-form').attr('style', 'display: block')
+        $('.add-form').attr('style', 'display: block');
       }
     );
 };
