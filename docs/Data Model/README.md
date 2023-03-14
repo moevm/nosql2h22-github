@@ -89,11 +89,11 @@
 - Author_email: 128 bytes
 - Data_and_time: 20 bytes
 - Changed_files: 760 bytes
-- Message: 
+- Message: 408 bytes
 
-Чистый объём документа commit: 1164  bytes 
+Чистый объём документа commit: 1572  bytes 
 
-Фактической объём документа commit: 1172 bytes 
+Фактической объём документа commit: 1580 bytes 
 
 ### Pull_Request
 - Id: 8 bytes
@@ -106,8 +106,8 @@
 - Creator_email: 128 bytes
 - Changed_files: 760 bytes
 - Comments: 1404 bytes
-- Merger_login:128 bytes
-- Merger_email:128 bytes
+- Merger_login: 128 bytes
+- Merger_email: 128 bytes
 
 Чистый объём документа Pull_Request: 4684  bytes 
 
@@ -142,13 +142,13 @@
 Фактической объём документа Comment: 1404 bytes 
 
 ## Избыточность модели
-Пусть в базе данных N<sub>1</sub>=5 пользователей N<sub>2</sub>=10 репозиториев N<sub>3</sub>=100 пулреквестов  N<sub>4</sub>=120 коммитов и N<sub>5</sub>=10 Issue
+Пусть в базе данных N<sub>1</sub>=5 пользователей, N<sub>2</sub>=10 репозиториев, N<sub>3</sub>=100 пулреквестов,  N<sub>4</sub>=120 коммитов, N<sub>5</sub>=10 Issue и N<sub>6</sub>=200 комментариев 
 
-V<sub>clear</sub> `=` N<sub>1</sub>`*`1109 `+` N<sub>2</sub>`*`2536 `+` N<sub>3</sub>`*`3408 `+` N<sub>4</sub>`*`1164`+`N<sub>5</sub>`*`3932 `=` 5`*`1109 `+` 10`*`2536 `+` 100`*`3408 `+`120`*`1164 `+` 10`*`3932 `=` 550705 bytes
+V<sub>clear</sub> `=` N<sub>1</sub>`*`1109 `+` N<sub>2</sub>`*`2536 `+` N<sub>3</sub>`*`4684 `+` N<sub>4</sub>`*`1164`+`N<sub>5</sub>`*`3932 `+` N<sub>6</sub>`*`1404`=` 5`*`1109 `+` 10`*`2536 `+` 100`*`4684 `+`120`*`1164 `+` 10`*`3932 `+` 200`*`1404 `=` 959105 bytes
 
-V<sub>real</sub> `=` N<sub>1</sub>`*`1109 `+` N<sub>2</sub>`*`2544 `+` N<sub>3</sub>`*`3416 `+` N<sub>4</sub>`*`1172`+`N<sub>5</sub>`*`3940 `=` 5`*`1109 `+` 10`*`2544 `+` 100`*`3416 `+`120`*`1172 `+` 10`*`3940 `=` 552625 bytes
+V<sub>real</sub> `=` N<sub>1</sub>`*`1109 `+` N<sub>2</sub>`*`2536 `+` N<sub>3</sub>`*`4692 `+` N<sub>4</sub>`*`1172`+`N<sub>5</sub>`*`3940 `+` N<sub>6</sub>`*`1404`=` 5`*`1109 `+` 10`*`2536 `+` 100`*`4692 `+`120`*`1172 `+` 10`*`3940 `+` 200`*`1404 `=` 960945 bytes
 
-Избыточность: V<sub>real</sub> `/` V<sub>clear</sub> `=` 552625/550705 `=` 1,00348644
+Избыточность: V<sub>real</sub> `/` V<sub>clear</sub> `=` 960945/959105 `=` 1,00191846
 
 ## Направление роста модели при увеличении количества объектов каждой сущности
 Размер базы данных растет линейно по каждому параметру.
@@ -203,12 +203,12 @@ collection.find_commit({"Author_Name":"Pavel", "Changed_files":",Новая па
 
 ### Commit
 
-- Id:8 bytes
-- Author_Name:128 bytes
-- Author_login:128 bytes
-- Author_email:128 bytes
-- Data_and_time:20 bytes
-- Changed_files:760bytes
+- Id: 8 bytes
+- Author_Name: 128 bytes
+- Author_login: 128 bytes
+- Author_email: 128 bytes
+- Data_and_time: 20 bytes
+- Changed_files: 760bytes
 
 Чистый объём документа commit: 1164  bytes 
 
@@ -220,18 +220,18 @@ collection.find_commit({"Author_Name":"Pavel", "Changed_files":",Новая па
 - Title:256 bytes
 - State: 100 bytes
 - Creator_name: 128 bytes
-- Creation_date:20 bytes
+- Creation_date: 20 bytes
 - Creator_login: 128 bytes
 - Creator_email: 128 bytes
-- Changed_files:760bytes
-- Comment_body:1000 bytes
-- Comment_created_date:20 bytes
-- Comment_author_name:128 bytes
-- Comment_author_login:128 bytes
-- Comment_author_email:128 bytes
-- Merger_name:128 bytes
-- Merger_login:128 bytes
-- Merger_email:128 bytes
+- Changed_files: 760bytes
+- Comment_body: 1000 bytes
+- Comment_created_date: 20 bytes
+- Comment_author_name: 128 bytes
+- Comment_author_login: 128 bytes
+- Comment_author_email: 128 bytes
+- Merger_name: 128 bytes
+- Merger_login: 128 bytes
+- Merger_email: 128 bytes
 
 Чистый объём документа Pull_Request: 3308  bytes 
 
@@ -260,7 +260,7 @@ collection.find_commit({"Author_Name":"Pavel", "Changed_files":",Новая па
 Фактической объём документа Issue: 3940 bytes 
 
 ### IssueOfRepo
-- Id_repo:8 bytes
+- Id_repo: 8 bytes
 - Id(Issue):8 bytes
 
 Чистый объём документа IssueOfRepo: 0  bytes 
@@ -346,6 +346,10 @@ SELECT *
 SELECT *
   FROM commit
   WHERE Author_Name = Pavel AND Changed_files="Новая папка (2)/README.md"
+  
+## Пример представления данных в базе данных
+![SampleData](sample_data_1.jpg)
+![SampleData](sample_data_2.jpg)
 
 ## Сравнение моделей
 В данной модели обнаруженно преимущество нереляционной модели всясвязи с отсутствием накладных данных на таблицы связи, которые покрываются списками в одной сущности.
