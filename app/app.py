@@ -31,7 +31,7 @@ def authorization():
             if (request.form.get('repo-alert')== 'True'):
                 f_repos = request.files['upload-repos']
                 if allowed_file(f_repos.filename):
-                    ImportFromJSON(f_users, 'r')
+                    ImportFromJSON(f_repos, 'r')
             Download = request.form.get('download')
             if Download == 'True':
                 return redirect('download')    

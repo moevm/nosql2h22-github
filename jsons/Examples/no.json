@@ -1,0 +1,22 @@
+[
+    {
+        "_id": {
+            "$oid": "6410bdcd802f610c666e135b"
+        },
+        "UserName": "Pavel",
+        "Password": "123",
+        "Token": "ghp_404",
+        "Repos": [
+        ]
+    },
+    {
+        "_id": {
+            "$oid": "640ecb90bfb934fa2e0a81de"
+        },
+        "UserName": "NePavel",
+        "Password": "123",
+        "Token": "ghp_404",
+        "Repos": [
+        ]
+    }
+]

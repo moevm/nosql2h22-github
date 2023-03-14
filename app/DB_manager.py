@@ -2,8 +2,8 @@ from github import Github, GithubException
 import json
 from pymongo import MongoClient
 import bson.json_util as json_util
-
-client = MongoClient("mongodb://mongo:27017")
+MONGOTIMEOUT=5000000
+client = MongoClient("mongodb://mongo:27017",serverSelectionTimeoutMS=MONGOTIMEOUT)
 
 db = client["Data"] 
 dbUsers = db["Users"]
