@@ -9,6 +9,38 @@
   top: 0;
   display: block;
 }
+
+.btn-find {
+  font-family: "Roboto";
+  text-transform: uppercase;
+  outline: 0;
+  background: #2d2e2d;
+  border: 0;
+  padding: 10px;
+  color: #FFFFFF;
+  -webkit-transition: all 0.3 ease;
+  transition: all 0.3 ease;
+  cursor: pointer;
+}
+
+.btn-find:hover{
+  background-color: #555;
+}
+
+.find-repo {
+  font-family: "Roboto";
+  outline: 0;
+  background: #d8d8d8;
+  
+  margin: 0 0 15px;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.find-form{
+  margin-left: 12px;
+}
+
 .log-out {
   float: right;
   background-color: #2d2e2d;
@@ -128,6 +160,7 @@ ul div:hover {
 
 .repo-link {
   padding: 11px 16px;
+  text-transform: none
 }
 
 .repo-link:hover {
@@ -237,7 +270,7 @@ ul div:hover {
 .dropdown {
   position: relative;
   display: inline-block;
-  margin-left: 9px;
+
   margin-top: 64px;
 }
 
