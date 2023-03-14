@@ -112,4 +112,4 @@ def menu():
         return render_template('menu.html',repos=repos, name=name, issues=issues, prs=pr, commits=commits)
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True, host="0.0.0.0")
